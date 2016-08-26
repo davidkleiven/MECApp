@@ -5,6 +5,8 @@
 #include <sstream>
 using namespace std;
 
+GmshReader::GmshReader(){};
+
 Facet* GmshReader::read( const string& fname ) const
 {
   ifstream infile( fname.c_str() );
@@ -30,6 +32,7 @@ Facet* GmshReader::read( const string& fname ) const
     if ( line.find(nodestart) != string::npos )
     {
       breakOnNext = true;
+      continue;
     }
     if ( breakOnNext )
     {
@@ -52,7 +55,6 @@ Facet* GmshReader::read( const string& fname ) const
     stringstream ss;
     ss << line;
     ss >> nodeNumber;
-    ss >> point.x;
     ss >> point.y;
     ss >> point.z;
     Facet::nodesCrd.push_back(point);
@@ -65,6 +67,7 @@ Facet* GmshReader::read( const string& fname ) const
     if ( line.find(elementstart) != string::npos )
     {
       breakOnNext=true;
+      continue;
     } 
     if ( breakOnNext )
     {

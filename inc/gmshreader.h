@@ -6,7 +6,7 @@
 class GmshReader
 {
   public:
-    GmshReader(){};
+    GmshReader();
     Facet* read( const std::string& fname ) const;
 };
 #endif

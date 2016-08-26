@@ -19,7 +19,7 @@ FLAGS=-std=c++11
 .PHONY: clean
 
 lib: ${LIBOBJ}	
-	${CXX} -shared -fPIC -o ${LIBNAME} $^
+	${CXX} -shared -o ${LIBNAME} $^
 
 test: lib ${TESTOBJ} 
 	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework
@@ -28,7 +28,7 @@ ${ODIR}/%.o: ${SDIR}/%.cpp
 	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR}
 
 ${TESTODIR}/%.o: ${TESTDIR}/%.cpp
-	${CXX} ${FLAGS} -c -o $@ $< -I ${IDIR}
+	${CXX} ${FLAGS} -c -o -fPIC $@ $< -I ${IDIR}
 
 clean:
 	rm ${ODIR}/*.o

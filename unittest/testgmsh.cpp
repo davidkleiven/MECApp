@@ -8,7 +8,7 @@ using namespace std;
 BOOST_AUTO_TEST_SUITE( testread )
 BOOST_AUTO_TEST_CASE( read )
 {
-  const string fname = "squareAcc.msh";
+  const string fname("squareAcc.msh");
   GmshReader reader;
   Facet* facets = reader.read( fname );
   BOOST_CHECK_EQUAL( Facet::nodesCrd.size(), 45 );
