@@ -14,10 +14,10 @@ class Facet
     void setNodes( unsigned int newnodes[3] );
     const unsigned int* getNodes() const{return nodes;};
     Facet* addFacet( unsigned int newnodes[3] );
-    Facet* next(){return next;};
+    Facet* next(){return _next;};
   private:
     unsigned int nodes[3];
-    Facet* next{NULL};
+    Facet* _next{NULL};
     bool isHead{true};
 };
 #endif

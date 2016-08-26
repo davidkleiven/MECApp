@@ -1,18 +1,18 @@
 #include "gmshreader.h"
 #include <iostream>
 #include <fstream>
-#include <cstdexcept>
-#include <stringstream>
+#include <stdexcept>
+#include <sstream>
 using namespace std;
 
-Facet* GmshReader::read( const string& fname )
+Facet* GmshReader::read( const string& fname ) const
 {
   ifstream infile( fname.c_str() );
   if ( !infile.good() )
   {
     string msg("Could not open file ");
     msg += fname;
-    msh += "...";
+    msg += "...";
     throw ( runtime_error(msg) );
   }
 
@@ -24,7 +24,7 @@ Facet* GmshReader::read( const string& fname )
   
   // Read until nodestart is found + 1 line
   bool breakOnNext = false;
-  while ( getline(line, infile) )
+  while ( getline(infile, line) )
   {
     if ( line.find(nodestart) != string::npos )
     {
@@ -37,12 +37,12 @@ Facet* GmshReader::read( const string& fname )
   }
   if ( Facet::nodesCrd.size() > 0 )
   {
-    throw( invalide_argument("Node coordinates is already initialized...") );
+    throw( invalid_argument("Node coordinates is already initialized...") );
   }
   
   Point point;
   unsigned int nodeNumber;
-  while( getline(line, infile) )
+  while( getline(infile, line) )
   {
     if ( line.find(nodeend) != string::npos )
     {
@@ -52,14 +52,14 @@ Facet* GmshReader::read( const string& fname )
     ss << line;
     ss >> nodeNumber;
     ss >> point.x;
-    ss >> point.y
+    ss >> point.y;
     ss >> point.z;
     Facet::nodesCrd.push_back(point);
   }
 
   // Read until start elements is found
   breakOnNext = false;
-  while ( getline(line, infile) )
+  while ( getline(infile,line) )
   {
     if ( line.find(elementstart) != string::npos )
     {
@@ -76,7 +76,7 @@ Facet* GmshReader::read( const string& fname )
   bool isFirst = true;
 
   Facet* first = new Facet();
-  while ( getline(line, infile) )
+  while ( getline(infile,line) )
   {
     stringstream ss;
     ss << line;

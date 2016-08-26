@@ -4,9 +4,9 @@ using namespace std;
 
 Facet::~Facet()
 {
-  if ( next != NULL )
+  if ( _next != NULL )
   {
-    delete next;
+    delete _next;
   }
 }
 
@@ -15,6 +15,6 @@ Facet* Facet::addFacet( unsigned int nodenum[3] )
   Facet* newfacet = new Facet();
   newfacet->setNodes(nodenum);
   this->isHead = false;
-  newfacet->next = this;
+  newfacet->_next = this;
   return newfacet;
 } 

@@ -3,7 +3,7 @@ IDIR=inc
 ODIR=obj
 SDIR=src
 
-LIBSRC:=facet.cpp
+LIBSRC:=facet.cpp gmshreader.cpp
 LIBOBJ:=${LIBSRC:%.cpp=%.o}
 LIBOBJ:=${addprefix ${ODIR}/, ${LIBOBJ}}
 LIBSRC:=${addprefix ${SDIR}/, ${LIBSRC}}
@@ -16,7 +16,7 @@ lib: ${LIBOBJ}
 	${CXX} -shared -fPIC -o ${LIBNAME} $^
 
 ${ODIR}/%.o: ${SDIR}/%.cpp
-	${CXX} ${FLAGS} -o $@ -c $< -I ${IDIR}
+	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR}
 
 clean:
 	rm ${ODIR}/*.o
