@@ -9,11 +9,15 @@ class Facet
   public:
     Facet();
     ~Facet();
-  private:
+
     static std::vector<Point> nodesCrd;
-    static bool nodesAreInitialized;
+    void setNodes( unsigned int newnodes[3] );
+    const unsigned int* getNodes() const{return nodes;};
+    Facet* addFacet( unsigned int newnodes[3] );
+    Facet* next(){return next;};
+  private:
     unsigned int nodes[3];
     Facet* next{NULL};
-    bool isHead{false};
+    bool isHead{true};
 };
 #endif
