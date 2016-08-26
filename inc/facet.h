@@ -7,7 +7,7 @@
 class Facet
 {
   public:
-    Facet();
+    Facet(){};
     ~Facet();
 
     static std::vector<Point> nodesCrd;

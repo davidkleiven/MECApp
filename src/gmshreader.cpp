@@ -20,6 +20,7 @@ Facet* GmshReader::read( const string& fname ) const
   const string nodestart("$Nodes");
   const string nodeend("$EndNodes");
   const string elementstart("$Elements");  
+  const string elementend("$EndElements");
   string line;
   
   // Read until nodestart is found + 1 line
@@ -78,6 +79,10 @@ Facet* GmshReader::read( const string& fname ) const
   Facet* first = new Facet();
   while ( getline(infile,line) )
   {
+    if ( line.find(elementend) != string::npos )
+    {
+      break;
+    }
     stringstream ss;
     ss << line;
     ss >> elementType;
