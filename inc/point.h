@@ -1,8 +1,18 @@
 #ifndef POINT_H
 #define POINT_H
 
-struct Point
+class Vec3
 {
+public:
+  Vec3(double x, double y, double z):x(x), y(y), z(z){};
+  Vec3():x(0.0), y(0.0), z(0.0){};
+  double getX() const {return x;};
+  double getY() const {return y;};
+  double getZ() const {return z;};
+  void setX(double newX){x=newX;};
+  void setY(double newY){y=newY;};
+  void setZ(double newZ){z=newZ;};
+private:
   double x;
   double y;
   double z;

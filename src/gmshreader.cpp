@@ -44,7 +44,6 @@ Facet* GmshReader::read( const string& fname ) const
     throw( invalid_argument("Node coordinates is already initialized...") );
   }
   
-  Point point;
   unsigned int nodeNumber;
   while( getline(infile, line) )
   {
@@ -52,11 +51,12 @@ Facet* GmshReader::read( const string& fname ) const
     {
       break;
     }
+    double x,y,z;
     stringstream ss;
     ss << line;
     ss >> nodeNumber;
-    ss >> point.y;
-    ss >> point.z;
+    ss >> x >> y >> z;
+    Vec3 point(x,y,z);
     Facet::nodesCrd.push_back(point);
   }
 
