@@ -16,13 +16,18 @@ TESTOBJ:=${TESTS:%.cpp=%.o}
 TESTOBJ:=${addprefix ${TESTODIR}/, ${TESTOBJ}}
 FLAGS=-std=c++11
 
-.PHONY: clean
+.PHONY: clean check
 
 lib: ${LIBOBJ}	
 	${CXX} -shared -o ${LIBNAME} $^
 
 test: lib ${TESTOBJ} 
 	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework
+
+check: test
+	cd ${TESTDIR}; \
+	./alltest.out; \
+	cd ../
 
 ${ODIR}/%.o: ${SDIR}/%.cpp
 	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR}
