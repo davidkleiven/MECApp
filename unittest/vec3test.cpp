@@ -1,6 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "point.h"
 #include <string>
+#include <cmath>
 using namespace std;
 
 BOOST_AUTO_TEST_SUITE( vec3 )
@@ -50,6 +51,7 @@ BOOST_AUTO_TEST_CASE( subtract )
   BOOST_CHECK_CLOSE(sum.getY(), 19.9, 0.1f);
   BOOST_CHECK_CLOSE(sum.getZ(), 2.0, 0.1f);
 }
+
 BOOST_AUTO_TEST_CASE( subtractEqual )
 {
   double x1 = 1.0;
@@ -112,5 +114,11 @@ BOOST_AUTO_TEST_CASE( divideByScalarEqual )
   BOOST_CHECK_CLOSE( vec.getX(), 0.5, 0.1f);
   BOOST_CHECK_CLOSE( vec.getY(), 0.75, 0.1f);
   BOOST_CHECK_CLOSE( vec.getZ(), 1.0, 0.1f);
+}
+BOOST_AUTO_TEST_CASE( absVal )
+{
+  Vec3 vec(1.0, 2.0, 3.0);
+  double expected = sqrt( 1.0+4.0+9.0 );
+  BOOST_CHECK_CLOSE( expected, vec.abs(), 0.1f );
 }
 BOOST_AUTO_TEST_SUITE_END()
