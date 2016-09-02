@@ -5,8 +5,9 @@ SDIR=src
 TESTDIR=unittest
 TESTODIR=unittest/obj
 
-LIBSRC:=facet.cpp gmshreader.cpp
-TESTS:=testgmsh.cpp
+LIBSRC:=facet.cpp gmshreader.cpp point.cpp
+#TESTS:=testgmsh.cpp vec3test.cpp
+TESTS:=alltest.cpp
 LIBOBJ:=${LIBSRC:%.cpp=%.o}
 LIBOBJ:=${addprefix ${ODIR}/, ${LIBOBJ}}
 LIBSRC:=${addprefix ${SDIR}/, ${LIBSRC}}
@@ -16,7 +17,7 @@ TESTOBJ:=${TESTS:%.cpp=%.o}
 TESTOBJ:=${addprefix ${TESTODIR}/, ${TESTOBJ}}
 FLAGS=-std=c++11
 
-.PHONY: clean check
+.PHONY: clean check cleantest ${TESTODIR}/alltest.o
 
 lib: ${LIBOBJ}	
 	${CXX} -shared -o ${LIBNAME} $^
@@ -32,8 +33,13 @@ check: test
 ${ODIR}/%.o: ${SDIR}/%.cpp
 	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR}
 
+${TESTODIR}/alltest.o: ${TESTDIR}/alltest.cpp
+	${CXX} ${FLAGS} -fPIC -c -o $@ $< -I ${IDIR} -I ${TESTDIR}
+
 ${TESTODIR}/%.o: ${TESTDIR}/%.cpp
-	${CXX} ${FLAGS} -c -o -fPIC $@ $< -I ${IDIR}
+	${CXX} ${FLAGS} -fPIC -c -o $@ $< -I ${IDIR}
 
 clean:
 	rm ${ODIR}/*.o
+cleantest:
+	rm ${TESTODIR}/*.o
