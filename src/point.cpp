@@ -34,3 +34,32 @@ Vec3 Vec3::operator /(double scale)
   Vec3 result(x,y,z);
   return result;
 }
+
+Vec3& Vec3::operator +=(const Vec3 &rhs)
+{
+  this->x += rhs.x;
+  this->y += rhs.y;
+  this->z += rhs.z;
+  return *this;
+}
+Vec3& Vec3::operator -=(const Vec3 &rhs)
+{
+  this->x -= rhs.x;
+  this->y -= rhs.y;
+  this->z -= rhs.z;
+  return *this;
+}
+Vec3& Vec3::operator *=(double scale)
+{
+  this->x *= scale;
+  this->y *= scale;
+  this->z *= scale;
+  return *this;
+}
+Vec3& Vec3::operator /=(double scale)
+{
+  this->x /= scale;
+  this->y /= scale;
+  this->z /= scale;
+  return *this;
+}

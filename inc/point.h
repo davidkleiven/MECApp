@@ -16,6 +16,10 @@ public:
   Vec3 operator-(const Vec3& rhs);
   Vec3 operator*(double scale);
   Vec3 operator/(double scale);
+  Vec3& operator+=(const Vec3& rhs);
+  Vec3& operator-=(const Vec3& rhs);
+  Vec3& operator*=(double scale);
+  Vec3& operator/=(double scale);
 private:
   double x;
   double y;
