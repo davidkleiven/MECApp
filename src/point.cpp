@@ -1,4 +1,5 @@
 #include "point.h"
+#include <cmath>
 
 Vec3 Vec3::operator +(const Vec3 &rhs)
 {
@@ -69,4 +70,9 @@ void Vec3::zeros()
   this->x = 0.0;
   this->y = 0.0;
   this->z = 0.0;
+}
+
+double Vec3::abs() const
+{
+  return sqrt( x*x+y*y+z*z );
 }
