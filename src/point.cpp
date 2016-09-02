@@ -63,3 +63,10 @@ Vec3& Vec3::operator /=(double scale)
   this->z /= scale;
   return *this;
 }
+
+void Vec3::zeros()
+{
+  this->x = 0.0;
+  this->y = 0.0;
+  this->z = 0.0;
+}
