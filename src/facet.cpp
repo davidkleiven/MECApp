@@ -1,4 +1,5 @@
 #include "facet.h"
+#include <iostream>
 
 using namespace std;
 vector<Vec3> Facet::nodesCrd;
@@ -37,3 +38,12 @@ void Facet::centroid( Vec3& result )
   }
   result /= 3.0; 
 }  
+
+double Facet::computeDistanceFromSource( const Vec3& sourcePosition )
+{
+  Vec3 centroidVec;
+  this->centroid( centroidVec );
+  centroidVec -= sourcePosition;
+  _distanceFromSource = centroidVec.abs();
+  return _distanceFromSource; 
+}
