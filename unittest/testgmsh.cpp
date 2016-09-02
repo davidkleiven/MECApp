@@ -1,5 +1,3 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE GmshTest
 #include <boost/test/unit_test.hpp>
 #include "gmshreader.h"
 #include <string>
