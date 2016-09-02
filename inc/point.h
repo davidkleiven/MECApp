@@ -12,6 +12,10 @@ public:
   void setX(double newX){x=newX;};
   void setY(double newY){y=newY;};
   void setZ(double newZ){z=newZ;};
+  Vec3 operator+(const Vec3& rhs);
+  Vec3 operator-(const Vec3& rhs);
+  Vec3 operator*(double scale);
+  Vec3 operator/(double scale);
 private:
   double x;
   double y;
