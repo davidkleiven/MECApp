@@ -16,11 +16,13 @@ class Facet
     const unsigned int* getNodes() const{return nodes;};
     Facet* addFacet( unsigned int newnodes[3] );
     Facet* next(){return _next;};
+    double computeDistanceFromSource( const Vec3& sourcePosition );
   private:
     unsigned int nodes[3];
     Facet* _next{NULL};
     Facet* _prev{NULL};
     bool isHead{true};
     bool isIlluminated{false};
+    double _distanceFromSource{0.0};
 };
 #endif
