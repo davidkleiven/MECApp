@@ -12,6 +12,7 @@ class Facet
 
     static std::vector<Vec3> nodesCrd;
     void setNodes( unsigned int newnodes[3] );
+    void centroid( Vec3& result );
     const unsigned int* getNodes() const{return nodes;};
     Facet* addFacet( unsigned int newnodes[3] );
     Facet* next(){return _next;};

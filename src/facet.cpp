@@ -27,3 +27,13 @@ void Facet::setNodes( unsigned int newnodes[3] )
   nodes[1] = newnodes[1]; 
   nodes[2] = newnodes[2]; 
 }
+
+void Facet::centroid( Vec3& result )
+{
+  result.zeros();
+  for ( unsigned int i=0;i<3;i++ )
+  {
+    result += nodesCrd[ nodes[i] ];
+  }
+  result /= 3.0; 
+}  

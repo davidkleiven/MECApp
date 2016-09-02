@@ -2,3 +2,4 @@
 #define BOOST_TEST_DYN_LINK
 #include "testgmsh.cpp"
 #include "vec3test.cpp"
+#include "facettest.cpp"
