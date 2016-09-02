@@ -18,6 +18,7 @@ class Facet
   private:
     unsigned int nodes[3];
     Facet* _next{NULL};
+    Facet* _prev{NULL};
     bool isHead{true};
     bool isIlluminated{false};
 };

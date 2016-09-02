@@ -1,7 +1,7 @@
 #include "facet.h"
 
 using namespace std;
-vector<Point> Facet::nodesCrd;
+vector<Vec3> Facet::nodesCrd;
 
 Facet::~Facet()
 {
@@ -17,6 +17,7 @@ Facet* Facet::addFacet( unsigned int nodenum[3] )
   newfacet->setNodes(nodenum);
   this->isHead = false;
   newfacet->_next = this;
+  this->_prev = newfacet;
   return newfacet;
 } 
 
