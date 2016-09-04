@@ -1,5 +1,6 @@
 #include <boost/test/unit_test.hpp>
 #include "gmshreader.h"
+#include "facets.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -11,17 +12,11 @@ BOOST_AUTO_TEST_CASE( read )
   GmshReader reader;
   try
   {
-    Facet* facets = reader.read( fname );
+    Facets facets = reader.read( fname );
     BOOST_CHECK_EQUAL( Facet::nodesCrd.size(), 45 );
     
     // Count facets
-    unsigned int counter = 0;
-    for ( Facet* iter=facets; iter != NULL; iter=iter->next() )
-    {
-      counter++;
-    } 
-    BOOST_CHECK_EQUAL( counter, 88 ); 
-    delete facets;
+    BOOST_CHECK_EQUAL( facets.size(), 88 ); 
   }
   catch ( runtime_error &exc )
   {

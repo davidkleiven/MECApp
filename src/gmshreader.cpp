@@ -3,11 +3,13 @@
 #include <fstream>
 #include <stdexcept>
 #include <sstream>
+#include "facets.h"
+#include "facet.h"
 using namespace std;
 
 GmshReader::GmshReader(){};
 
-Facet* GmshReader::read( const string& fname ) const
+Facets GmshReader::read( const string& fname ) const
 {
   ifstream infile( fname.c_str() );
   if ( !infile.good() )
@@ -79,9 +81,10 @@ Facet* GmshReader::read( const string& fname ) const
   unsigned int numberOfTags;
   bool isFirst = true;
 
-  Facet* first = new Facet();
+  Facets facetlist;
   while ( getline(infile,line) )
   {
+    Facet* newfacet = new Facet();
     if ( line.find(elementend) != string::npos )
     {
       break;
@@ -99,16 +102,9 @@ Facet* GmshReader::read( const string& fname ) const
     ss >> nodenum[0];
     ss >> nodenum[1];
     ss >> nodenum[2];
-    if ( isFirst )
-    {
-      first->setNodes(nodenum);
-      isFirst = false;
-    }
-    else
-    {
-      first = first->addFacet( nodenum );
-    }
+    newfacet->setNodes(nodenum);
+    facetlist.add( newfacet );
   }
   infile.close();
-  return first;
+  return facetlist;
 }

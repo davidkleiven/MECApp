@@ -1,12 +1,12 @@
 #ifndef GMSH_READER_H
 #define GMSH_READER_H
 #include <string>
-#include "facet.h"
+#include "facets.h"
 
 class GmshReader
 {
   public:
     GmshReader();
-    Facet* read( const std::string& fname ) const;
+    Facets read( const std::string& fname ) const;
 };
 #endif
