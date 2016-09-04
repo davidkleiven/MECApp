@@ -1,5 +1,6 @@
 #include "facet.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 vector<Vec3> Facet::nodesCrd;
@@ -85,3 +86,16 @@ bool Facet::isBehindFacetPlane( const Vec3& vec ) const
   return sign*normalVector->dot( vec - *center ) < 0.0; 
 }
 
+bool Facet::isInsidePyramid( const Vec3& vec ) const
+{
+  int sign = 0;
+  for ( unsigned int i=0;i<3;i++ )
+  {
+    Vec3 v1 = nodesCrd[nodes[(i+1)%3]] - _sourcePos;
+    Vec3 v2 = nodesCrd[nodes[(i+2)%3]] - _sourcePos;
+    Vec3 v3 = v1.cross( v2 );
+    double dotProd = v3.dot(vec-_sourcePos);
+    sign += (dotProd/abs(dotProd));
+  }
+  return sign == 3;
+}

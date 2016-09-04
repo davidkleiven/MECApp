@@ -44,6 +44,27 @@ BOOST_AUTO_TEST_CASE( isBehind )
   testPoint.setZ(-10.0);
   BOOST_CHECK_EQUAL( facet.isBehindFacetPlane(testPoint), true ); 
 }
+
+BOOST_AUTO_TEST_CASE( isInsidePyamid )
+{
+  Vec3 source(0.0, 0.0, 100.0);
+  Vec3 crd0(0.0,0.0,0.0);
+  Vec3 crd1(0.0,1.0,0.0);
+  Vec3 crd2(1.0, 0.0, 0.0);
+  Facet::nodesCrd.clear();
+  Facet::nodesCrd.push_back(crd0);
+  Facet::nodesCrd.push_back(crd1);
+  Facet::nodesCrd.push_back(crd2);
+  unsigned int nodes[3] = {0,1,2};
+  Facet facet;
+  facet.setNodes( nodes );
+  facet.computeDistanceFromSource( source );
+  
+  Vec3 testPoint(0.1, 0.1, 10.0);
+  BOOST_CHECK_EQUAL( facet.isInsidePyramid(testPoint), true );
+  testPoint.setX(2.0);
+  BOOST_CHECK_EQUAL( facet.isInsidePyramid(testPoint), false);
+}
   
   
 BOOST_AUTO_TEST_SUITE_END()

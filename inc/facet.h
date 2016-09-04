@@ -23,6 +23,7 @@ class Facet
     const Vec3& getNormal() { return *normalVector; };
     const Vec3& computeNormalVector();
     bool isBehindFacetPlane( const Vec3& vec ) const;
+    bool isInsidePyramid( const Vec3& vec ) const;
   private:
     unsigned int nodes[3];
     bool isIlluminated{false};
