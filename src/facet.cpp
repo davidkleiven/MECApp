@@ -71,7 +71,9 @@ bool Facet::operator <(const Facet& rhs)
 
 const Vec3& Facet::computeNormalVector()
 {
-  *normalVector = nodesCrd[nodes[0]].cross( nodesCrd[nodes[1]] );
+  Vec3 vec1 = nodesCrd[nodes[1]] - nodesCrd[nodes[0]];
+  Vec3 vec2 = nodesCrd[nodes[2]] - nodesCrd[nodes[0]];
+  *normalVector = vec1.cross( vec2 );
   *normalVector /= normalVector->abs();
   return *normalVector;
 } 
