@@ -7,7 +7,8 @@
 class Facet
 {
   public:
-    Facet(){};
+    Facet();
+    ~Facet();
 
     static std::vector<Vec3> nodesCrd;
     void setNodes( unsigned int newnodes[3] );
@@ -16,9 +17,12 @@ class Facet
     double computeDistanceFromSource( const Vec3& sourcePosition );
     bool operator <( const Facet& rhs );
     double getDistanceFromSource() const { return _distanceFromSource;  };
+    const Vec3& getNormal() { return *normalVector; };
+    const Vec3& computeNormalVector();
   private:
     unsigned int nodes[3];
     bool isIlluminated{false};
     double _distanceFromSource{0.0};
+    Vec3 *normalVector;
 };
 #endif
