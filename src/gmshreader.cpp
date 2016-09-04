@@ -84,7 +84,7 @@ Facets GmshReader::read( const string& fname ) const
   Facets facetlist;
   while ( getline(infile,line) )
   {
-    Facet* newfacet = new Facet();
+    Facet newfacet;
     if ( line.find(elementend) != string::npos )
     {
       break;
@@ -102,7 +102,7 @@ Facets GmshReader::read( const string& fname ) const
     ss >> nodenum[0];
     ss >> nodenum[1];
     ss >> nodenum[2];
-    newfacet->setNodes(nodenum);
+    newfacet.setNodes(nodenum);
     facetlist.add( newfacet );
   }
   infile.close();
