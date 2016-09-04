@@ -29,3 +29,8 @@ double Facet::computeDistanceFromSource( const Vec3& sourcePosition )
   _distanceFromSource = centroidVec.abs();
   return _distanceFromSource; 
 }
+
+bool Facet::operator <(const Facet& rhs)
+{
+  return this->_distanceFromSource < rhs._distanceFromSource;
+}

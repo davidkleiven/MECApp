@@ -14,6 +14,8 @@ class Facet
     void centroid( Vec3& result );
     const unsigned int* getNodes() const{return nodes;};
     double computeDistanceFromSource( const Vec3& sourcePosition );
+    bool operator <( const Facet& rhs );
+    double getDistanceFromSource() const { return _distanceFromSource;  };
   private:
     unsigned int nodes[3];
     bool isIlluminated{false};
