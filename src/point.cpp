@@ -76,3 +76,13 @@ double Vec3::abs() const
 {
   return sqrt( x*x+y*y+z*z );
 }
+
+Vec3 Vec3::cross( const Vec3& rhs ) const
+{
+  Vec3 result;
+  result.setX( y*rhs.z - z*rhs.y );
+  result.setY( z*rhs.x - x*rhs.z );
+  result.setZ( x*rhs.y - y*rhs.x );
+  return result;
+}
+

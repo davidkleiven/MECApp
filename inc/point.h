@@ -22,6 +22,7 @@ public:
   Vec3& operator*=(double scale);
   Vec3& operator/=(double scale);
   double abs() const;
+  Vec3 cross( const Vec3& rhs ) const;
 private:
   double x;
   double y;

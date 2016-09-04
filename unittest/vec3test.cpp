@@ -121,4 +121,13 @@ BOOST_AUTO_TEST_CASE( absVal )
   double expected = sqrt( 1.0+4.0+9.0 );
   BOOST_CHECK_CLOSE( expected, vec.abs(), 0.1f );
 }
+BOOST_AUTO_TEST_CASE( cross )
+{
+  Vec3 vec(1.0,2.0,3.0);
+  Vec3 rhs(-1.0, 3.0,-2.0);
+  Vec3 result = vec.cross(rhs);
+  BOOST_CHECK_CLOSE( result.getX(), -13.0, 0.1f );
+  BOOST_CHECK_CLOSE( result.getY(), -1.0, 0.1f );
+  BOOST_CHECK_CLOSE( result.getZ(), 5.0, 0.1f );
+}
 BOOST_AUTO_TEST_SUITE_END()
