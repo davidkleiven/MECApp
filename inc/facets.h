@@ -8,6 +8,8 @@ class Facets
 {
   public:
     Facets();
+    Facets(const Facets &other);
+    Facets& operator =(const Facets &other);
     ~Facets();
     void add( Facet newfacet );
     unsigned int size() { return facets->size(); };
@@ -17,5 +19,7 @@ class Facets
   private:
     std::vector<Facet> *facets;
     bool hasComputedDistanceFromSource{false};
+
+    void swap( const Facets &other );
 };
 #endif

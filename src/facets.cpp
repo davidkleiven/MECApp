@@ -4,6 +4,17 @@
 
 using namespace std;
 Facets::Facets(): facets(new vector<Facet>()){};
+Facets::Facets( const Facets &other ): facets(new vector<Facet>())
+{
+  this->swap(other);
+}
+
+Facets& Facets::operator =( const Facets &other )
+{
+  this->swap(other);
+  return *this;
+}
+
 Facets::~Facets()
 {
   delete facets;
@@ -33,3 +44,9 @@ void Facets::sortByDistanceFromSource()
   sort( facets->begin(), facets->end() );
 }
 
+
+void Facets::swap( const Facets& other )
+{
+  *facets = *other.facets;
+  hasComputedDistanceFromSource = other.hasComputedDistanceFromSource;
+} 
