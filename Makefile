@@ -5,7 +5,7 @@ SDIR=src
 TESTDIR=unittest
 TESTODIR=unittest/obj
 
-LIBSRC:=facet.cpp gmshreader.cpp point.cpp
+LIBSRC:=facet.cpp gmshreader.cpp point.cpp facets.cpp
 #TESTS:=testgmsh.cpp vec3test.cpp
 TESTS:=alltest.cpp
 LIBOBJ:=${LIBSRC:%.cpp=%.o}
