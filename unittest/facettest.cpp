@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE( isBehind )
   facet.setNodes( nodes );
   facet.computeDistanceFromSource( source );
   
-  Vec3 testPoint(0.2,0.5, 10.0);
+  Vec3 testPoint(0.2,0.2, 10.0);
   BOOST_CHECK_EQUAL( facet.isBehindFacetPlane(testPoint), false ); 
   testPoint.setZ(-10.0);
   BOOST_CHECK_EQUAL( facet.isBehindFacetPlane(testPoint), true ); 
