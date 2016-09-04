@@ -85,4 +85,3 @@ Vec3 Vec3::cross( const Vec3& rhs ) const
   result.setZ( x*rhs.y - y*rhs.x );
   return result;
 }
-
