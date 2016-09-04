@@ -1,7 +1,7 @@
 #include "point.h"
 #include <cmath>
 
-Vec3 Vec3::operator +(const Vec3 &rhs)
+Vec3 Vec3::operator +(const Vec3 &rhs) const
 {
   double x = this->x + rhs.x;
   double y = this->y + rhs.y;
@@ -9,7 +9,7 @@ Vec3 Vec3::operator +(const Vec3 &rhs)
   Vec3 result(x,y,z);
   return result;
 }
-Vec3 Vec3::operator -(const Vec3 &rhs)
+Vec3 Vec3::operator -(const Vec3 &rhs) const
 {
   double x = this->x - rhs.x;
   double y = this->y - rhs.y;
@@ -18,7 +18,7 @@ Vec3 Vec3::operator -(const Vec3 &rhs)
   return result;
 }
 
-Vec3 Vec3::operator *(double scale)
+Vec3 Vec3::operator *(double scale) const
 {
   double x = scale*this->x;
   double y = scale*this->y;
@@ -27,7 +27,7 @@ Vec3 Vec3::operator *(double scale)
   return result;
 }
 
-Vec3 Vec3::operator /(double scale)
+Vec3 Vec3::operator /(double scale) const
 {
   double x = this->x/scale;
   double y = this->y/scale;
@@ -84,4 +84,9 @@ Vec3 Vec3::cross( const Vec3& rhs ) const
   result.setY( z*rhs.x - x*rhs.z );
   result.setZ( x*rhs.y - y*rhs.x );
   return result;
+}
+
+double Vec3::dot( const Vec3& rhs ) const
+{
+  return x*rhs.x + y*rhs.y + z*rhs.z;
 }

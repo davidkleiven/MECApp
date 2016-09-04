@@ -13,16 +13,17 @@ public:
   void setY(double newY){y=newY;};
   void setZ(double newZ){z=newZ;};
   void zeros();
-  Vec3 operator+(const Vec3& rhs);
-  Vec3 operator-(const Vec3& rhs);
-  Vec3 operator*(double scale);
-  Vec3 operator/(double scale);
+  Vec3 operator+(const Vec3& rhs) const;
+  Vec3 operator-(const Vec3& rhs) const;
+  Vec3 operator*(double scale) const;
+  Vec3 operator/(double scale) const;
   Vec3& operator+=(const Vec3& rhs);
   Vec3& operator-=(const Vec3& rhs);
   Vec3& operator*=(double scale);
   Vec3& operator/=(double scale);
   double abs() const;
   Vec3 cross( const Vec3& rhs ) const;
+  double dot( const Vec3& rhs ) const;
 private:
   double x;
   double y;
