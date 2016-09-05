@@ -24,11 +24,12 @@ class Facet
     const Vec3& computeNormalVector();
     bool isBehindFacetPlane( const Vec3& vec ) const;
     bool isInsidePyramid( const Vec3& vec ) const;
-    bool isHidden( const Facet& other ) const;
+    bool isBehindOther( const Facet& other ) const;
     void setIllumination( bool isIlumn ) { isIlluminated = isIlumn; };
+    bool getIllumination() const { return isIlluminated; };
   private:
     unsigned int nodes[3];
-    bool isIlluminated{false};
+    bool isIlluminated{true};
     double _distanceFromSource{0.0};
     Vec3 *normalVector;
     static Vec3 _sourcePos; // Hold the position of the source to verify the direction of the normal vector

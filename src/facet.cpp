@@ -102,7 +102,7 @@ bool Facet::isInsidePyramid( const Vec3& vec ) const
 
 bool Facet::isBehindOther( const Facet& other ) const
 {
-  bool isBehindOtherPlane = other.isBehindPlane( center );
-  bool isInsideOtherPyramid = other.isInsidePyramid( center );
-  return isBehindOtherPlane && isIndiseOtherPyramid;
+  bool isBehindOtherPlane = other.isBehindFacetPlane( *center );
+  bool isInsideOtherPyramid = other.isInsidePyramid( *center );
+  return isBehindOtherPlane && isInsideOtherPyramid;
 } 
