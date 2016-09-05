@@ -6,6 +6,7 @@ HELP_MSG += "--help or -h: print this message\n"
 HELP_MSG += "--vtkHeaders=/path/to/vtk/headers: Specify path to the vtk library header files\n"
 
 OUTFILE = "makefilepaths.sh"
+
 def main(argv):
     for arg in argv:
         if ( (arg.find("--help") != -1) or (arg.find("-h") != -1) ):

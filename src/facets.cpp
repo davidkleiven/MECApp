@@ -1,16 +1,16 @@
 #include "facets.h"
 #include <stdexcept>
 #include <algorithm>
-#include <vtkTriangle.h>
-#include <vtkCellArray.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyData.h>
-#include <vtkCellData.h>
-#include <vtkPoints.h>
-#include <vtkXMLUnstructuredGridWriter.h>
-#include <vtkXMLPolyDataWriter.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkUnsignedCharArray.h>
+#include "vtkTriangle.h"
+#include "vtkCellArray.h"
+#include "vtkSmartPointer.h"
+#include "vtkPolyData.h"
+#include "vtkCellData.h"
+#include "vtkPoints.h"
+#include "vtkXMLUnstructuredGridWriter.h"
+#include "vtkXMLPolyDataWriter.h"
+#include "vtkUnstructuredGrid.h"
+#include "vtkUnsignedCharArray.h"
 
 using namespace std;
 Facets::Facets(): facets(new vector<Facet>()){};

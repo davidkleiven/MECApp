@@ -25,7 +25,7 @@ lib: ${LIBOBJ}
 	${CXX} -shared -o ${LIBNAME} $^
 
 test: lib ${TESTOBJ} 
-	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework -lvtk
+	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework
 
 check: test
 	cd ${TESTDIR}; \
