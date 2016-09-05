@@ -24,6 +24,8 @@ class Facet
     const Vec3& computeNormalVector();
     bool isBehindFacetPlane( const Vec3& vec ) const;
     bool isInsidePyramid( const Vec3& vec ) const;
+    bool isHidden( const Facet& other ) const;
+    void setIllumination( bool isIlumn ) { isIlluminated = isIlumn; };
   private:
     unsigned int nodes[3];
     bool isIlluminated{false};

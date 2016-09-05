@@ -99,3 +99,10 @@ bool Facet::isInsidePyramid( const Vec3& vec ) const
   }
   return sign == 3;
 }
+
+bool Facet::isBehindOther( const Facet& other ) const
+{
+  bool isBehindOtherPlane = other.isBehindPlane( center );
+  bool isInsideOtherPyramid = other.isInsidePyramid( center );
+  return isBehindOtherPlane && isIndiseOtherPyramid;
+} 
