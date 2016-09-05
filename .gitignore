@@ -31,3 +31,4 @@
 # Other
 .*swo
 *.swp
+makefilepaths.sh
