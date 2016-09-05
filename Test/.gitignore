@@ -1,0 +1,8 @@
+
+obj/*
+*.cmake
+CMakeCache.txt
+CMakeFiles/*
+*.out
+Makefile
+Makefile.old
