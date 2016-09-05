@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.6)
+project(Test)
+set (CMAKE_MODULE_PATH "/usr/lib/")
+set(VTK_DIR "/home/david/Documents/VTKSource/install")
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
+add_executable(illumination.out src/illumination.cpp)
+target_link_libraries(illumination.out ${VTK_LIBRARIES})
