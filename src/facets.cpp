@@ -4,10 +4,13 @@
 #include <vtkTriangle.h>
 #include <vtkCellArray.h>
 #include <vtkSmartPointer.h>
-#include <vtkPointData.h>
+#include <vtkPolyData.h>
+#include <vtkCellData.h>
 #include <vtkPoints.h>
 #include <vtkXMLUnstructuredGridWriter.h>
+#include <vtkXMLPolyDataWriter.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkUnsignedCharArray.h>
 
 using namespace std;
 Facets::Facets(): facets(new vector<Facet>()){};
@@ -58,9 +61,11 @@ void Facets::swap( const Facets& other )
   hasComputedDistanceFromSource = other.hasComputedDistanceFromSource;
 } 
 
-void Facets::saveVTK( const string &fname ) const
+void Facets::saveIlluminationVTK( const string &fname ) const
 {
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New(); 
+  points->SetDataTypeToDouble();
+
   // Fill the points array
   for ( unsigned int i=0;i<Facet::nodesCrd.size();i++ )
   {
@@ -71,6 +76,11 @@ void Facets::saveVTK( const string &fname ) const
   vtkSmartPointer<vtkCellArray> triangles = vtkSmartPointer<vtkCellArray>::New();
 
   // Fill triangle array
+  vtkSmartPointer<vtkUnsignedCharArray> ilumnData = vtkSmartPointer<vtkUnsignedCharArray>::New();
+  ilumnData->SetNumberOfComponents(3);
+  ilumnData->SetName("Illumination");
+  unsigned char red[3] = {255,0,0};
+  unsigned char grey[3] = {80,80,80};
   for ( unsigned int i=0;i<this->size();i++ )
   {
     vtkSmartPointer<vtkTriangle> triangle = vtkSmartPointer<vtkTriangle>::New();
@@ -79,10 +89,41 @@ void Facets::saveVTK( const string &fname ) const
     triangle->GetPointIds()->SetId(1, nodes[1]);
     triangle->GetPointIds()->SetId(2, nodes[2]);
     triangles->InsertNextCell(triangle);
+   
+    if ( (*facets)[i].getIllumination() )
+    {
+      ilumnData->InsertNextTupleValue(red);
+    }
+    else
+    {
+      ilumnData->InsertNextTupleValue(grey);
+    }
   }
 
   // Unstructured grid
-  vtkSmartPointer<vtkUnstructuredGrid> grid = vtkSmartPointer<vtkUnstructuredGrid>::New(); 
-  grid->SetPoints( points );
-  grid->SetCells( VTK_TRIANGLE, triangles ); 
+  vtkSmartPointer<vtkPolyData> polys = vtkSmartPointer<vtkPolyData>::New(); 
+  polys->SetPoints( points );
+  polys->SetPolys( triangles );  
+  polys->GetCellData()->SetScalars( ilumnData );
+
+  // Write file
+  vtkSmartPointer<vtkXMLPolyDataWriter> writer = vtkSmartPointer<vtkXMLPolyDataWriter>::New();
+  writer->SetFileName( fname.c_str() );
+  writer->SetInputData( polys );
+  writer->Write(); 
+}
+
+void Facets::illuminate()
+{
+  for ( vector<Facet>::iterator it=facets->begin(); it != facets->end(); ++it )
+  {
+    for ( vector<Facet>::iterator innerIt=facets->begin(); innerIt != it; ++innerIt )
+    { 
+      if ( it->isBehindOther(*innerIt) )
+      {
+        it->setIllumination( false );
+        break;
+      }
+    }
+  }
 }
