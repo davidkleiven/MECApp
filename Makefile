@@ -5,6 +5,8 @@ SDIR=src
 TESTDIR=unittest
 TESTODIR=unittest/obj
 
+include makefilepaths.sh
+
 LIBSRC:=facet.cpp gmshreader.cpp point.cpp facets.cpp
 #TESTS:=testgmsh.cpp vec3test.cpp
 TESTS:=alltest.cpp
@@ -23,7 +25,7 @@ lib: ${LIBOBJ}
 	${CXX} -shared -o ${LIBNAME} $^
 
 test: lib ${TESTOBJ} 
-	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework
+	${CXX} -o ${TESTDIR}/alltest.out ${TESTOBJ}  -L./ -lmecapp -lboost_program_options -lboost_unit_test_framework -lvtk
 
 check: test
 	cd ${TESTDIR}; \
@@ -31,7 +33,7 @@ check: test
 	cd ../
 
 ${ODIR}/%.o: ${SDIR}/%.cpp
-	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR}
+	${CXX} ${FLAGS} -fPIC -o $@ -c $< -I ${IDIR} -I ${VTK_HEADER}
 
 ${TESTODIR}/alltest.o: ${TESTDIR}/alltest.cpp
 	${CXX} ${FLAGS} -fPIC -c -o $@ $< -I ${IDIR} -I ${TESTDIR}
