@@ -1,6 +1,7 @@
 #ifndef FACETS_H
 #define FACETS_H
 #include <vector>
+#include <string>
 #include "facet.h"
 #include "point.h"
 
@@ -12,10 +13,11 @@ class Facets
     Facets& operator =(const Facets &other);
     ~Facets();
     void add( Facet newfacet );
-    unsigned int size() { return facets->size(); };
+    unsigned int size() const { return facets->size(); };
     void computeDistanceFromSource( const Vec3 &sourcePos );
     void sortByDistanceFromSource();
     Facet& getFacet( unsigned int indx ) const { return (*facets)[indx]; };
+    void saveVTK( const std::string &fname ) const;
   private:
     std::vector<Facet> *facets;
     bool hasComputedDistanceFromSource{false};
