@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE( read )
     BOOST_CHECK_EQUAL( Facet::nodesCrd.size(), 45 );
     
     // Count facets
-    BOOST_CHECK_EQUAL( facets.size(), 88 ); 
+    BOOST_CHECK_EQUAL( facets.size(), 68 ); 
   }
   catch ( runtime_error &exc )
   {
