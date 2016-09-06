@@ -91,6 +91,7 @@ Facets GmshReader::read( const string& fname ) const
 
   unsigned int elementType;
   unsigned int numberOfTags;
+  unsigned int elementNumber;
   bool isFirst = true;
 
   Facets facetlist;
@@ -106,7 +107,14 @@ Facets GmshReader::read( const string& fname ) const
     }
     stringstream ss;
     ss << line;
+    ss >> elementNumber;
     ss >> elementType;
+
+    if ( elementType != TRIANGLE )
+    {
+      continue;
+    }
+
     ss >> numberOfTags;
     unsigned int tag;
     for ( unsigned int i=0;i<numberOfTags; i++ )
@@ -117,6 +125,9 @@ Facets GmshReader::read( const string& fname ) const
     ss >> nodenum[0];
     ss >> nodenum[1];
     ss >> nodenum[2];
+    nodenum[0] -= 1;
+    nodenum[1] -= 1;
+    nodenum[2] -= 1;
     newfacet.setNodes(nodenum);
     facetlist.add( newfacet );
   }
