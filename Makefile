@@ -5,7 +5,7 @@ SDIR=src
 TESTDIR=unittest
 TESTODIR=unittest/obj
 
-include makefilepaths.sh
+include makefilepaths.sh # Contains VTK_HEADER
 
 LIBSRC:=facet.cpp gmshreader.cpp point.cpp facets.cpp
 #TESTS:=testgmsh.cpp vec3test.cpp
