@@ -32,3 +32,16 @@
 .*swo
 *.swp
 makefilepaths.sh
+CMakeCache.txt
+src/CMakeCache.txt
+unittest/CMakeCache.txt
+CMakeFiles/*
+src/CMakeFiles/*
+unittest/CMakeFiles/*
+unittest/Makefile
+src/Makefile
+
+cmake_install.cmake
+unittest/cmake_install.cmake
+src/cmake_install.cmake
+Makefile
