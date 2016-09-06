@@ -99,7 +99,7 @@ bool Facet::isInsidePyramid( const Vec3& vec ) const
     double dotProd = v3.dot(vec-_sourcePos);
     sign += (dotProd/abs(dotProd));
   }
-  return sign == 3;
+  return abs(sign) == 3;
 }
 
 bool Facet::isBehindOther( const Facet& other ) const
@@ -108,3 +108,4 @@ bool Facet::isBehindOther( const Facet& other ) const
   bool isInsideOtherPyramid = other.isInsidePyramid( *center );
   return isBehindOtherPlane && isInsideOtherPyramid;
 } 
+
