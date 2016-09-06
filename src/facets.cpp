@@ -1,6 +1,7 @@
 #include "facets.h"
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
 #include "vtkTriangle.h"
 #include "vtkCellArray.h"
 #include "vtkSmartPointer.h"
@@ -30,7 +31,7 @@ Facets::~Facets()
   delete facets;
 }
 
-void Facets::add( Facet facet )
+void Facets::add( const Facet &facet )
 {
   facets->push_back( facet );
 }

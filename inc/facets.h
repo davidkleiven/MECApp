@@ -12,7 +12,7 @@ class Facets
     Facets(const Facets &other);
     Facets& operator =(const Facets &other);
     ~Facets();
-    void add( Facet newfacet );
+    void add( const Facet &newfacet );
     unsigned int size() const { return facets->size(); };
     void computeDistanceFromSource( const Vec3 &sourcePos );
     void sortByDistanceFromSource();
