@@ -92,11 +92,11 @@ void Facets::saveIlluminationVTK( const string &fname ) const
    
     if ( (*facets)[i].getIllumination() )
     {
-      ilumnData->InsertNextTupleValue(red);
+      ilumnData->InsertNextTypedTuple(red); // New in VTK 7.1 TypedTuple was TupleValue before
     }
     else
     {
-      ilumnData->InsertNextTupleValue(grey);
+      ilumnData->InsertNextTypedTuple(grey); // New in VTK 7.1 TypedTuple was TupleValue before
     }
   }
 
