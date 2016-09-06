@@ -6,8 +6,9 @@ using namespace std;
 vector<Vec3> Facet::nodesCrd;
 Vec3 Facet::_sourcePos(0.0,0.0,0.0);
 
-Facet::Facet():normalVector( new Vec3() ), center( new Vec3() ){};
-Facet::Facet(const Facet &other):normalVector(new Vec3()), center( new Vec3() )
+Facet::Facet():normalVector( new Vec3() ), center( new Vec3() ), nodes(new unsigned int[3]){};
+
+Facet::Facet(const Facet &other):normalVector(new Vec3()), center( new Vec3() ), nodes(new unsigned int[3])
 {
   this->swap(other);
 }
@@ -34,6 +35,7 @@ Facet::~Facet()
 {
   delete normalVector;
   delete center;
+  delete [] nodes;
 }
 
 void Facet::setNodes( unsigned int newnodes[3] )

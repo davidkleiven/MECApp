@@ -28,7 +28,7 @@ class Facet
     void setIllumination( bool isIlumn ) { isIlluminated = isIlumn; };
     bool getIllumination() const { return isIlluminated; };
   private:
-    unsigned int nodes[3];
+    unsigned int *nodes;
     bool isIlluminated{true};
     double _distanceFromSource{0.0};
     Vec3 *normalVector;
