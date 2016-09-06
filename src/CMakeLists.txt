@@ -13,4 +13,4 @@ endif()
 include(${VTK_USE_FILE})
 include_directories( ../inc /home/david/VTKSource/install/include )
 
-add_library(mecapp SHARED facet.cpp facets.cpp point.cpp gmshreader.cpp)
+add_library(mecapp SHARED facet.cpp facets.cpp point.cpp gmshreader.cpp regionBoundary.cpp)
