@@ -6,7 +6,7 @@
 #include "facets.h"
 #include "facet.h"
 #include <string>
-#define GMSHREADER_DEBUG
+//#define GMSHREADER_DEBUG
 using namespace std;
 
 GmshReader::GmshReader(){};
