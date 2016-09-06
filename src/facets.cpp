@@ -44,7 +44,6 @@ void Facets::computeDistanceFromSource( const Vec3 &sourcePos )
     (*facets)[i].computeDistanceFromSource( sourcePos );
   }
   hasComputedDistanceFromSource = true;
-  reverse( facets->begin(), facets->end() ); // Swap to descending
 } 
 
 void Facets::sortByDistanceFromSource()
