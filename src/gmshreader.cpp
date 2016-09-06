@@ -5,12 +5,15 @@
 #include <sstream>
 #include "facets.h"
 #include "facet.h"
+#include <string>
+#define GMSHREADER_DEBUG
 using namespace std;
 
 GmshReader::GmshReader(){};
 
 Facets GmshReader::read( const string& fname ) const
 {
+  string id("[GmshReader::read] ");
   ifstream infile( fname.c_str() );
   if ( !infile.good() )
   {
@@ -29,6 +32,9 @@ Facets GmshReader::read( const string& fname ) const
   
   // Read until nodestart is found + 1 line
   bool breakOnNext = false;
+  #ifdef GMSHREADER_DEBUG
+    cerr << id << "Searching for nodestart...\n";
+  #endif
   while ( getline(infile, line) )
   {
     if ( line.find(nodestart) != string::npos )
@@ -47,6 +53,9 @@ Facets GmshReader::read( const string& fname ) const
   }
   
   unsigned int nodeNumber;
+  #ifdef GMSHREADER_DEBUG
+    cerr << id << "Reading nodes...\n";
+  #endif
   while( getline(infile, line) )
   {
     if ( line.find(nodeend) != string::npos )
@@ -64,6 +73,9 @@ Facets GmshReader::read( const string& fname ) const
 
   // Read until start elements is found
   breakOnNext = false;
+  #ifdef GMSHREADER_DEBUG
+    cerr << id << "Searching for element start...\n";
+  #endif
   while ( getline(infile,line) )
   {
     if ( line.find(elementstart) != string::npos )
@@ -82,6 +94,9 @@ Facets GmshReader::read( const string& fname ) const
   bool isFirst = true;
 
   Facets facetlist;
+  #ifdef GMSHREADER_DEBUG
+    cerr << id << "Reading elements...\n";
+  #endif
   while ( getline(infile,line) )
   {
     Facet newfacet;
@@ -106,5 +121,8 @@ Facets GmshReader::read( const string& fname ) const
     facetlist.add( newfacet );
   }
   infile.close();
+  #ifdef GMSHREADER_DEBUG
+    cerr << id << "Leaving read function...\n";
+  #endif
   return facetlist;
 }
