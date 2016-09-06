@@ -18,7 +18,7 @@ int main( int argc, char **argv )
   try
   {
     Facets facets = reader.read(fname); 
-    Vec3 sourcePosition(-10.0,0.0,0.0);
+    Vec3 sourcePosition(-100.0,0.0,0.0);
     facets.computeDistanceFromSource( sourcePosition );
     facets.sortByDistanceFromSource();
     facets.illuminate();
