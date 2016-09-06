@@ -27,6 +27,8 @@ class Facet
     bool isBehindOther( const Facet& other ) const;
     void setIllumination( bool isIlumn ) { isIlluminated = isIlumn; };
     bool getIllumination() const { return isIlluminated; };
+    const Vec3& getSourcePosition() const { return _sourcePos; };
+    const Vec3& getNormalVector() const { return *normalVector; };
   private:
     unsigned int *nodes;
     bool isIlluminated{true};
