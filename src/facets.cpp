@@ -12,6 +12,7 @@
 #include "vtkXMLPolyDataWriter.h"
 #include "vtkUnstructuredGrid.h"
 #include "vtkUnsignedCharArray.h"
+#include "vtkDoubleArray.h"
 
 using namespace std;
 Facets::Facets(): facets(new vector<Facet>()){};
@@ -65,7 +66,6 @@ void Facets::swap( const Facets& other )
 void Facets::saveIlluminationVTK( const string &fname ) const
 {
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New(); 
-  points->SetDataTypeToDouble();
 
   // Fill the points array
   for ( unsigned int i=0;i<Facet::nodesCrd.size();i++ )
@@ -77,11 +77,9 @@ void Facets::saveIlluminationVTK( const string &fname ) const
   vtkSmartPointer<vtkCellArray> triangles = vtkSmartPointer<vtkCellArray>::New();
 
   // Fill triangle array
-  vtkSmartPointer<vtkUnsignedCharArray> ilumnData = vtkSmartPointer<vtkUnsignedCharArray>::New();
-  ilumnData->SetNumberOfComponents(3);
+  vtkSmartPointer<vtkDoubleArray> ilumnData = vtkSmartPointer<vtkDoubleArray>::New();
+  ilumnData->SetNumberOfComponents(1);
   ilumnData->SetName("Illumination");
-  unsigned char red[3] = {255,0,0};
-  unsigned char grey[3] = {80,80,80};
   for ( unsigned int i=0;i<this->size();i++ )
   {
     vtkSmartPointer<vtkTriangle> triangle = vtkSmartPointer<vtkTriangle>::New();
@@ -93,11 +91,11 @@ void Facets::saveIlluminationVTK( const string &fname ) const
    
     if ( (*facets)[i].getIllumination() )
     {
-      ilumnData->InsertNextTypedTuple(red); // New in VTK 7.1 TypedTuple was TupleValue before
+      ilumnData->InsertNextTuple1(1.0); // New in VTK 7.1 TypedTuple was TupleValue before
     }
     else
     {
-      ilumnData->InsertNextTypedTuple(grey); // New in VTK 7.1 TypedTuple was TupleValue before
+      ilumnData->InsertNextTuple1(0.0); // New in VTK 7.1 TypedTuple was TupleValue before
     }
   }
 
