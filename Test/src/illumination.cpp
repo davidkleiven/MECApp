@@ -17,8 +17,9 @@ int main( int argc, char **argv )
   // Parse the file and get a facets object
   try
   {
-    Facets facets = reader.read(fname); 
-    Vec3 sourcePosition(-100.0,0.0,0.0);
+    Facets facets;
+    reader.readMesh(fname, facets); 
+    Vec3<double> sourcePosition(-100.0,0.0,0.0);
     facets.computeDistanceFromSource( sourcePosition );
     facets.sortByDistanceFromSource();
     facets.illuminate();
