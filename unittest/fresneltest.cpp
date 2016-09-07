@@ -36,6 +36,21 @@ BOOST_AUTO_TEST_CASE( fresneltest )
   BOOST_CHECK_CLOSE( real(rTM), rTMexact, 0.1f );
   BOOST_CHECK_CLOSE( imag(rTE), 0.0, 0.1f );
   BOOST_CHECK_CLOSE( imag(rTM), 0.0, 0.1f );
+
+  // TE case
+  Vec3<double> E_inc(0.0,1.0,0.0);
+  Vec3< complex<double> > E_tot = fresnel.totalField( E_inc, normal, waveVec );
+  Vec3<double> expectedTotal = E_inc  + E_inc*rTEexact;
+  BOOST_CHECK_CLOSE( expectedTotal.getY(), real(E_tot.getY()), 0.1f); 
+
+  // TM case
+  E_inc.setY(0.0);
+  E_inc.setX( k*cos(incAngle*PI/180.0) );
+  E_inc.setZ( k*sin(incAngle*PI/180.0) );
+  E_tot = fresnel.totalField( E_inc, normal, waveVec );
+  expectedTotal = E_inc + E_inc*rTMexact;
+  BOOST_CHECK_CLOSE( expectedTotal.getX(), real(E_tot.getX()), 0.1f );
+  BOOST_CHECK_CLOSE( expectedTotal.getZ(), real(E_tot.getZ()), 0.1f ); 
 }
 BOOST_AUTO_TEST_SUITE_END()
 

@@ -2,6 +2,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <iostream>
+//#define FRESNEL_DEBUG
 
 using namespace std;
 
@@ -71,20 +72,27 @@ Vec3< complex<double> > Fresnel::totalField( const Vec3<double> &E_inc, const Ve
   double sign = waveVector.dot(normalVec) > 0.0 ? -1.0:1.0; // Normal vector should be pointing in opposite direction of k
   complex<double> r_TE = reflectionTE( normalVec, waveVector );
   complex<double> r_TM = reflectionTM( normalVec, waveVector );
-  Vec3<double> paralellUnit = normalVec.cross(waveVector);
-  paralellUnit *= sign;
-  paralellUnit /= paralellUnit.abs();
-  double E_TE = E_inc.dot(paralellUnit);
+  Vec3<double> outOfScatteringPlane = normalVec.cross(waveVector);
+  outOfScatteringPlane *= sign;
+  outOfScatteringPlane /= outOfScatteringPlane.abs();
+  double E_TE = E_inc.dot(outOfScatteringPlane);
   
-  Vec3<double> TM_unit = E_inc.cross(paralellUnit);
-  TM_unit /= TM_unit.abs();
+  Vec3<double> TM_unit = outOfScatteringPlane.cross(waveVector);
   double E_TM = E_inc.dot(TM_unit);
-  Vec3<double> totFieldReal = E_inc + paralellUnit*E_TE*real(r_TE) + TM_unit*E_TM*real(r_TM);
-  Vec3<double> totFieldImag = paralellUnit*E_TE*imag(r_TE) + TM_unit*E_TM*imag(r_TM);
+  Vec3<double> totFieldReal = E_inc + outOfScatteringPlane*E_TE*real(r_TE) + TM_unit*E_TM*real(r_TM);
+  Vec3<double> totFieldImag = outOfScatteringPlane*E_TE*imag(r_TE) + TM_unit*E_TM*imag(r_TM);
   Vec3< complex<double> > totField;
   totField.setX( totFieldReal.getX() );
   totField.setY( totFieldReal.getY() );
   totField.setZ( totFieldReal.getZ() );
   totField.setImag( totFieldImag );
+  
+  #ifdef FRESNEL_DEBUG
+    cout << "Par unit: " << paralellUnit << endl;
+    cout << "TM_unit: " << TM_unit << endl;
+    cout << "Field real: " << totFieldReal << endl;
+    cout << "Field imag: " << totFieldImag << endl;
+    cout << "Tot field. " << totField << endl;
+  #endif   
   return totField;
 } 

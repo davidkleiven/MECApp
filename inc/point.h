@@ -1,6 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 #include "complexConjVec.h"
+#include <iostream>
 
 template < class T >
 class Vec3
@@ -43,5 +44,12 @@ private:
   // complexConjVec.h: Does nothing in the case of real numbers
   ComplexConjVector<T> conjugate;
   ImagAccessor<T> imagaccess; 
+};
+
+template <class T>
+std::ostream& operator << (std::ostream& out, const Vec3<T> &vec)
+{
+  out << "x: " << vec.getX() << " y: " << vec.getY() << " z: " << vec.getZ();
+  return out;
 };
 #endif
