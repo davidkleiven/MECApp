@@ -1,6 +1,7 @@
 #include "point.h"
 #include <cmath>
 #include <complex>
+#include "complexConjVec.h"
 
 using namespace std;
 template <class T>
@@ -73,6 +74,54 @@ double Vec3<T>::abs() const
   return sqrt( std::abs(x)*std::abs(x)+std::abs(y)*std::abs(y)+std::abs(z)*std::abs(z) );
 }
 
+template <class T>
+Vec3<T> Vec3<T>::cross( const Vec3<T>& rhs ) const
+{
+  Vec3<T> result;
+  result.setX( y*rhs.z - z*rhs.y );
+  result.setY( z*rhs.x - x*rhs.z );
+  result.setZ( x*rhs.y - y*rhs.x );
+  return result;
+}
+
+template <class T>
+T Vec3<T>::dot( const Vec3<T>& rhs ) const
+{
+  return x*rhs.x + y*rhs.y + z*rhs.z;
+}
+
+
+template <class T>
+Vec3<T> Vec3<T>::operator +(const Vec3<T> &rhs) const
+{
+  T x = this->x + rhs.x;
+  T y = this->y + rhs.y;
+  T z = this->z + rhs.z;
+  Vec3<T> result(x,y,z);
+  return result;
+}
+
+template <class T>
+Vec3<T> Vec3<T>::operator -(const Vec3<T> &rhs) const
+{
+  T x = this->x - rhs.x;
+  T y = this->y - rhs.y;
+  T z = this->z - rhs.z;
+  Vec3<T> result(x,y,z);
+  return result;
+}
+
+template <class T>
+void Vec3<T>::setImag( const Vec3<double>& imag )
+{
+  imagaccess.setImag( *this, imag );
+}
+
+template <class T>
+void Vec3<T>::conj()
+{
+  conjugate.compute(*this);
+}
 // Define allowed templates
 template class Vec3<double>;
 template class Vec3< complex<double> >;

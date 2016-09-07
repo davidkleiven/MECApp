@@ -12,7 +12,7 @@ class Fresnel
     std::complex<double> reflectionTE( const Vec3<double> &normalVec, const Vec3<double> &waveVector ) const;
     std::complex<double> reflectionTM( const Vec3<double> &normalVec,  const Vec3<double> &waveVector ) const;
     void setMaterial( const Material &mat, RegionBoundary::Domain_t domain );
-    Vec3< std::complex<double> > scatteredField( const Vec3<double> &E_inc, const Vec3<double>& normalVec, const Vec3<double> &waveVector ) const;
+    Vec3< std::complex<double> > totalField( const Vec3<double> &E_inc, const Vec3<double>& normalVec, const Vec3<double> &waveVector ) const;
   private:
     // Pointers to material. Designed to be pointers to properties in the RegionBoundary class
     const Material *incident;
