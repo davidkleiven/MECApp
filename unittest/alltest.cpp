@@ -4,3 +4,4 @@
 #include "vec3test.cpp"
 #include "facettest.cpp"
 #include "facetstest.cpp"
+#include "fresneltest.cpp"

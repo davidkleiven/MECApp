@@ -1,6 +1,7 @@
 #include "fresnel.h"
 #include <cmath>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
@@ -29,8 +30,8 @@ complex<double> Fresnel::reflectionTE( const Vec3<double>& normalVec, const Vec3
   }
 
   double k = waveVector.abs();
-  double kNormalInc = abs(waveVector.dot(normalVec));
-  Vec3<double> kParallel = waveVector.cross(normalVec);
+  double kNormalInc = abs(waveVector.dot(normalVec))/normalVec.abs();
+  Vec3<double> kParallel = waveVector.cross(normalVec)/normalVec.abs();
 
   complex<double> n_inc = sqrt( incident->eps*incident->mu );
   complex<double> n_scat = sqrt( scattered->eps*scattered->mu );
@@ -53,8 +54,8 @@ complex<double> Fresnel::reflectionTM( const Vec3<double>& normalVec, const Vec3
   }
 
   double k = waveVector.abs();
-  double kNormalInc = abs(waveVector.dot(normalVec));
-  Vec3<double> kParallel = waveVector.cross(normalVec);
+  double kNormalInc = abs(waveVector.dot(normalVec))/normalVec.abs();
+  Vec3<double> kParallel = waveVector.cross(normalVec)/normalVec.abs();
 
   complex<double> n_inc = sqrt( incident->eps*incident->mu );
   complex<double> n_scat = sqrt( scattered->eps*scattered->mu );
