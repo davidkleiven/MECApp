@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE( sort )
   try
   {
     Facets facets;
-    reader.read( fname, facets );
+    reader.readMesh( fname, facets );
     Vec3<double> sourcePos(-30.0,-10.0,-4.0);
     facets.computeDistanceFromSource( sourcePos );
     facets.sortByDistanceFromSource();

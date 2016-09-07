@@ -21,12 +21,12 @@ class RegionBoundary
     unsigned int getMinElm() const {return minElm;};
     unsigned int getMaxElm() const {return maxElm;};
     unsigned int getUID() const { return UID; };
-    bool operator <(const RegionBoundary &other);
+    bool operator <(const RegionBoundary &other) const;
   private:
     Material incidentMat;
     Material scatteredMat;
-    unsigned int minElm;
-    unsigned int maxElm;
+    unsigned int minElm{0};
+    unsigned int maxElm{0};
     unsigned int UID;
     static unsigned int nextUID;
 }; 

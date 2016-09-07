@@ -127,3 +127,8 @@ void Facets::illuminate()
     }
   }
 }
+
+void Facets::addRegion( RegionBoundary &boundary )
+{
+  boundaries->insert(boundary);
+} 

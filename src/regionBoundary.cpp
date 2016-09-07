@@ -42,7 +42,7 @@ complex<double> RegionBoundary::mu( Domain_t domain ) const
   }
 }
 
-bool RegionBoundary::operator <(const RegionBoundary &other)
+bool RegionBoundary::operator <(const RegionBoundary &other) const
 {
   return minElm < other.minElm;
 }

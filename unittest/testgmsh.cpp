@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE( read )
   try
   {
     Facets facets;
-    reader.read( fname, facets );
+    reader.readMesh( fname, facets );
     BOOST_CHECK_EQUAL( Facet::nodesCrd.size(), 45 );
     
     // Count facets

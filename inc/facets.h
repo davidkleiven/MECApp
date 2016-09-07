@@ -21,6 +21,7 @@ class Facets
     Facet& getFacet( unsigned int indx ) const { return (*facets)[indx]; };
     void saveIlluminationVTK( const std::string &fname ) const;
     void illuminate();
+    void addRegion( RegionBoundary &boundary );
   private:
     std::vector<Facet> *facets;
     std::set<RegionBoundary> *boundaries;

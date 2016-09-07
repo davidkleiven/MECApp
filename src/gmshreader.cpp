@@ -6,14 +6,76 @@
 #include "facets.h"
 #include "facet.h"
 #include <string>
+#include <jsoncpp/json/reader.h>
 //#define GMSHREADER_DEBUG
 using namespace std;
 
 GmshReader::GmshReader(){};
 
-void GmshReader::read( const string& fname, Facets& facets ) const
+void GmshReader::read( const string& jsonfile, Facets& facets )
 {
-  string id("[GmshReader::read] ");
+  ifstream in(jsonfile.c_str());
+  if ( !in.good() )
+  {
+    string msg("Could not open file ");
+    msg += jsonfile;
+    throw( runtime_error(msg) );
+  }
+  Json::Reader reader;
+  reader.parse( in, data );
+  in.close();
+  
+  if ( !data.isMember("mesh") )
+  {
+    throw (invalid_argument("The json file does not contain a mesh file..."));
+  }
+  complex<double> epsInc, muInc, epsScat, muScat;
+  readMatProp( "epsInc", epsInc );
+  readMatProp( "muInc", muInc );
+  readMatProp( "epsScat", epsScat );
+  readMatProp( "muScat", muScat );
+
+  RegionBoundary reg;
+  reg.setMatProp( epsInc, muInc, RegionBoundary::Domain_t::INCIDENT );
+  reg.setMatProp( epsScat, muScat, RegionBoundary::Domain_t::SCATTERED ); 
+  reg.setMinElm( facets.size() );
+  readMesh( data["mesh"].asString(), facets );
+  reg.setMaxElm( facets.size() );
+  facets.addRegion( reg );
+  
+}
+
+void GmshReader::readMatProp( const string& key, complex<double> &matprop ) const
+{
+  if ( !data.isMember(key) )
+  {
+    cout << "Did not find " << key << " using default value 1\n";
+    matprop = 1.0;
+    return;
+  }
+
+  if ( !data[key].isMember("real") )
+  {
+    cout << "Did not find real part of " << key << " using default 1.0\n";
+  }
+  else
+  {
+    matprop.real(data[key]["real"].asDouble() );
+  }
+  if ( !data[key].isMember("imag") )
+  {
+    cout << "Did not find imaginary part of " << key << " using default 0.0\n";
+    matprop.imag(0.0);
+  }
+  else
+  {
+    matprop.imag( data[key]["imag"].asDouble() );
+  }
+}
+  
+void GmshReader::readMesh( const string& fname, Facets& facets ) const
+{
+  string id("[GmshReader::readMesh] ");
   ifstream infile( fname.c_str() );
   if ( !infile.good() )
   {
