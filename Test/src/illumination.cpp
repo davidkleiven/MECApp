@@ -8,7 +8,7 @@
 using namespace std;
 int main( int argc, char **argv )
 {
-  string fname("sphere.msh");
+  string fname("sphereMat.json");
   string fnameOut("data/illumintedSphere.vtp");
   
   // Initialize the GMSH reader
@@ -18,11 +18,14 @@ int main( int argc, char **argv )
   try
   {
     Facets facets;
-    reader.readMesh(fname, facets); 
+    reader.read(fname, facets); 
     Vec3<double> sourcePosition(-100.0,0.0,0.0);
+    Vec3<double> E_inc(0.0,1.0,0.0);
+    Vec3<double> waveVec(1.0,0.0,0.0);
     facets.computeDistanceFromSource( sourcePosition );
     facets.sortByDistanceFromSource();
     facets.illuminate();
+    facets.computeEquivalentCurrent( E_inc, waveVec );
     facets.saveIlluminationVTK( fnameOut );
   }
   catch ( exception &exc )

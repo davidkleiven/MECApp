@@ -46,3 +46,15 @@ bool RegionBoundary::operator <(const RegionBoundary &other) const
 {
   return minElm < other.minElm;
 }
+
+const Material& RegionBoundary::getMat( Domain_t domain ) const
+{
+  switch (domain)
+  {
+    case Domain_t::INCIDENT:
+      return incidentMat;
+    case Domain_t::SCATTERED:
+      return scatteredMat;
+  }
+}
+

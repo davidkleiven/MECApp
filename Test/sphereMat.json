@@ -1,0 +1,19 @@
+{
+  "mesh":"sphere.msh",
+  "epsInc":{
+    "real":1.0,
+    "imag":0.0
+  },
+  "muInc":{
+    "real":1.0,
+    "imag":0.0
+  },
+  "epsScat":{
+    "real":2.25,
+    "imag":0.0
+  },
+  "muScat":{
+    "real":1.0,
+    "imag":0.0
+  }
+}

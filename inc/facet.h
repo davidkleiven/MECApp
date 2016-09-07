@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include "point.h"
+#include "equivalentCurrent.h"
 
 class Facet
 {
@@ -29,6 +30,7 @@ class Facet
     bool getIllumination() const { return isIlluminated; };
     const Vec3<double>& getSourcePosition() const { return _sourcePos; };
     const Vec3<double>& getNormalVector() const { return *normalVector; };
+    EquivalentCurrent& getEquivalentCurrent(){return *current;};
   private:
     unsigned int *nodes;
     bool isIlluminated{true};
@@ -38,5 +40,6 @@ class Facet
     Vec3<double> *center;
 
     void swap( const Facet &other );
+    EquivalentCurrent *current;
 };
 #endif

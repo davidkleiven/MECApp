@@ -6,6 +6,7 @@
 #include "point.h"
 #include <set>
 #include "regionBoundary.h"
+#include "fresnel.h"
 
 class Facets
 {
@@ -22,11 +23,14 @@ class Facets
     void saveIlluminationVTK( const std::string &fname ) const;
     void illuminate();
     void addRegion( RegionBoundary &boundary );
+    void computeEquivalentCurrent(const Vec3<double> &E_inc, const Vec3<double> &waveVec);
   private:
     std::vector<Facet> *facets;
     std::set<RegionBoundary> *boundaries;
     bool hasComputedDistanceFromSource{false};
+    Fresnel *fresnel;
 
     void swap( const Facets &other );
+    bool hasComputedEqCurrents{false};
 };
 #endif

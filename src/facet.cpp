@@ -6,9 +6,11 @@ using namespace std;
 vector<Vec3<double> > Facet::nodesCrd;
 Vec3<double> Facet::_sourcePos(0.0,0.0,0.0);
 
-Facet::Facet():normalVector( new Vec3<double>() ), center( new Vec3<double>() ), nodes(new unsigned int[3]){};
+Facet::Facet():normalVector( new Vec3<double>() ), center( new Vec3<double>() ), nodes(new unsigned int[3]), \
+current(new EquivalentCurrent()){};
 
-Facet::Facet(const Facet &other):normalVector(new Vec3<double>()), center( new Vec3<double>() ), nodes(new unsigned int[3])
+Facet::Facet(const Facet &other):normalVector(new Vec3<double>()), center( new Vec3<double>() ), nodes(new unsigned int[3]),\
+current(new EquivalentCurrent())
 {
   this->swap(other);
 }
@@ -23,6 +25,7 @@ void Facet::swap( const Facet &other )
 {
   *normalVector = *other.normalVector;
   *center = *other.center;
+  *current = *other.current;
   for ( unsigned int i=0;i<3;i++)
   {
     nodes[i] = other.nodes[i];
@@ -36,6 +39,7 @@ Facet::~Facet()
   delete normalVector;
   delete center;
   delete [] nodes;
+  delete current;
 }
 
 void Facet::setNodes( unsigned int newnodes[3] )
