@@ -78,6 +78,7 @@ Vec3< complex<double> > Fresnel::totalField( const Vec3<double> &E_inc, const Ve
   double E_TE = E_inc.dot(outOfScatteringPlane);
   
   Vec3<double> TM_unit = outOfScatteringPlane.cross(waveVector);
+  TM_unit /= TM_unit.abs();
   double E_TM = E_inc.dot(TM_unit);
   Vec3<double> totFieldReal = E_inc + outOfScatteringPlane*E_TE*real(r_TE) + TM_unit*E_TM*real(r_TM);
   Vec3<double> totFieldImag = outOfScatteringPlane*E_TE*imag(r_TE) + TM_unit*E_TM*imag(r_TM);
