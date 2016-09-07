@@ -41,3 +41,8 @@ complex<double> RegionBoundary::mu( Domain_t domain ) const
       return scatteredMat.mu;
   }
 }
+
+bool RegionBoundary::operator <(const RegionBoundary &other)
+{
+  return minElm < other.minElm;
+}

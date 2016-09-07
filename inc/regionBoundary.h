@@ -21,6 +21,7 @@ class RegionBoundary
     unsigned int getMinElm() const {return minElm;};
     unsigned int getMaxElm() const {return maxElm;};
     unsigned int getUID() const { return UID; };
+    bool operator <(const RegionBoundary &other);
   private:
     Material incidentMat;
     Material scatteredMat;
