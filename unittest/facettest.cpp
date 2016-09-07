@@ -5,11 +5,11 @@
 BOOST_AUTO_TEST_SUITE( facet )
 BOOST_AUTO_TEST_CASE( centroid )
 {
-  Vec3 crd0(0.0,0.0,0.0);
-  Vec3 crd1(0.0,2.0,2.0);
-  Vec3 crd2(1.0, -1.0,2.0);
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,2.0,2.0);
+  Vec3<double> crd2(1.0, -1.0,2.0);
   
-  Vec3 expCentroid(1.0/3.0, 1.0/3.0, 4.0/3.0);
+  Vec3<double> expCentroid(1.0/3.0, 1.0/3.0, 4.0/3.0);
   Facet::nodesCrd.clear();
   Facet::nodesCrd.push_back(crd0);
   Facet::nodesCrd.push_back(crd1);
@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE( centroid )
   unsigned int nodes[3] = {0,1,2};
   Facet facet;
   facet.setNodes( nodes );
-  Vec3 centroid;
+  Vec3<double> centroid;
   centroid = facet.centroid();
   BOOST_CHECK_CLOSE( centroid.getX(), expCentroid.getX(), 0.1f );
   BOOST_CHECK_CLOSE( centroid.getY(), expCentroid.getY(), 0.1f );
@@ -26,10 +26,10 @@ BOOST_AUTO_TEST_CASE( centroid )
 
 BOOST_AUTO_TEST_CASE( isBehindPlane )
 {
-  Vec3 source(0.0, 0.0, 100.0);
-  Vec3 crd0(0.0,0.0,0.0);
-  Vec3 crd1(0.0,1.0,0.0);
-  Vec3 crd2(1.0, 0.0, 0.0);
+  Vec3<double> source(0.0, 0.0, 100.0);
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,1.0,0.0);
+  Vec3<double> crd2(1.0, 0.0, 0.0);
   Facet::nodesCrd.clear();
   Facet::nodesCrd.push_back(crd0);
   Facet::nodesCrd.push_back(crd1);
@@ -39,12 +39,12 @@ BOOST_AUTO_TEST_CASE( isBehindPlane )
   facet.setNodes( nodes );
   facet.computeDistanceFromSource( source );
 
-  Vec3 sourceSet = facet.getSourcePosition();
+  Vec3<double> sourceSet = facet.getSourcePosition();
   BOOST_CHECK_CLOSE( sourceSet.getX(), source.getX(), 0.1f );
   BOOST_CHECK_CLOSE( sourceSet.getY(), source.getY(), 0.1f );
   BOOST_CHECK_CLOSE( sourceSet.getZ(), source.getZ(), 0.1f );
   
-  Vec3 testPoint(0.2,0.2, 0.1);
+  Vec3<double> testPoint(0.2,0.2, 0.1);
   BOOST_CHECK_EQUAL( facet.isBehindFacetPlane(testPoint), false ); 
   testPoint.setZ(-0.1);
   BOOST_CHECK_EQUAL( facet.isBehindFacetPlane(testPoint), true ); 
@@ -60,9 +60,9 @@ BOOST_AUTO_TEST_CASE( isBehindPlane )
 
 BOOST_AUTO_TEST_CASE( normalVector )
 {
-  Vec3 crd0(0.0,0.0,0.0);
-  Vec3 crd1(0.0,1.0,0.0);
-  Vec3 crd2(1.0, 0.0, 0.0);
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,1.0,0.0);
+  Vec3<double> crd2(1.0, 0.0, 0.0);
   Facet::nodesCrd.clear();
   Facet::nodesCrd.push_back(crd0);
   Facet::nodesCrd.push_back(crd1);
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE( normalVector )
   unsigned int nodes[3] = {0,1,2};
   Facet facet;
   facet.setNodes(nodes);
-  Vec3 normal = facet.getNormalVector();
+  Vec3<double> normal = facet.getNormalVector();
   BOOST_CHECK_CLOSE(normal.getX(), 0.0, 0.1f);  
   BOOST_CHECK_CLOSE(normal.getY(), 0.0, 0.1f);  
   BOOST_CHECK_CLOSE(abs(normal.getZ()), 1.0, 0.1f);   
@@ -78,10 +78,10 @@ BOOST_AUTO_TEST_CASE( normalVector )
 
 BOOST_AUTO_TEST_CASE( isInsidePyamid )
 {
-  Vec3 source(0.0, 0.0, 100.0);
-  Vec3 crd0(0.0,0.0,0.0);
-  Vec3 crd1(0.0,1.0,0.0);
-  Vec3 crd2(1.0, 0.0, 0.0);
+  Vec3<double> source(0.0, 0.0, 100.0);
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,1.0,0.0);
+  Vec3<double> crd2(1.0, 0.0, 0.0);
   Facet::nodesCrd.clear();
   Facet::nodesCrd.push_back(crd0);
   Facet::nodesCrd.push_back(crd1);
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE( isInsidePyamid )
   facet.setNodes( nodes );
   facet.computeDistanceFromSource( source );
   
-  Vec3 testPoint(0.1, 0.1, 10.0);
+  Vec3<double> testPoint(0.1, 0.1, 10.0);
   BOOST_CHECK_EQUAL( facet.isInsidePyramid(testPoint), true );
   testPoint.setX(2.0);
   testPoint.setZ(0.0);
@@ -107,11 +107,11 @@ BOOST_AUTO_TEST_CASE( isInsidePyamid )
   
 BOOST_AUTO_TEST_CASE( isBehindOther )
 {
-  Vec3 source(0.0,0.0,1000.0);
-  Vec3 crd0(0.0,0.0,0.0);
-  Vec3 crd1(0.0,1.0,0.0);
-  Vec3 crd2(1.0, 0.0, 0.0);
-  Vec3 crd3(1.0,0.0,-1.0);
+  Vec3<double> source(0.0,0.0,1000.0);
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,1.0,0.0);
+  Vec3<double> crd2(1.0, 0.0, 0.0);
+  Vec3<double> crd3(1.0,0.0,-1.0);
   Facet::nodesCrd.clear();
   Facet::nodesCrd.push_back(crd0);
   Facet::nodesCrd.push_back(crd1);

@@ -37,7 +37,7 @@ void Facets::add( const Facet &facet )
   facets->push_back( facet );
 }
 
-void Facets::computeDistanceFromSource( const Vec3 &sourcePos )
+void Facets::computeDistanceFromSource( const Vec3<double> &sourcePos )
 {
   for ( unsigned int i=0;i<facets->size();i++ )
   {
@@ -69,7 +69,7 @@ void Facets::saveIlluminationVTK( const string &fname ) const
   // Fill the points array
   for ( unsigned int i=0;i<Facet::nodesCrd.size();i++ )
   {
-    Vec3 vec = Facet::nodesCrd[i];
+    Vec3<double> vec = Facet::nodesCrd[i];
     points->InsertNextPoint(vec.getX(), vec.getY(), vec.getZ() );
   } 
 

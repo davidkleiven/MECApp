@@ -67,7 +67,7 @@ Facets GmshReader::read( const string& fname ) const
     ss << line;
     ss >> nodeNumber;
     ss >> x >> y >> z;
-    Vec3 point(x,y,z);
+    Vec3<double> point(x,y,z);
     Facet::nodesCrd.push_back(point);
   }
 
