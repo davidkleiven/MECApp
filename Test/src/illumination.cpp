@@ -4,10 +4,12 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 int main( int argc, char **argv )
 {
+  const double PI = acos(-1.0);
   string fname("sphereMat.json");
   string fnameOut("data/illumintedSphere.vtp");
   
@@ -15,13 +17,15 @@ int main( int argc, char **argv )
   GmshReader reader;
   
   // Parse the file and get a facets object
+  double wavelength = 0.05;
+  double wavenumber = 2.0*PI/wavelength;
   try
   {
     Facets facets;
     reader.read(fname, facets); 
     Vec3<double> sourcePosition(-100.0,0.0,0.0);
     Vec3<double> E_inc(0.0,1.0,0.0);
-    Vec3<double> waveVec(1.0,0.0,0.0);
+    Vec3<double> waveVec(wavenumber,0.0,0.0);
     facets.computeDistanceFromSource( sourcePosition );
     facets.sortByDistanceFromSource();
     facets.illuminate();
