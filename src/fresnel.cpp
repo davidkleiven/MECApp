@@ -96,3 +96,25 @@ Vec3< complex<double> > Fresnel::totalField( const Vec3<double> &E_inc, const Ve
   #endif   
   return totField;
 } 
+
+void Fresnel::equivalentCurrent( const Vec3<double> &E_inc, const Vec3<double> &normalVec, const Vec3<double> &waveVector, \
+    EquivalentCurrent &current) const
+{
+  Vec3< complex<double> > normalComplex; // To be able to use the operators
+  normalComplex.setX( normalVec.getX() );
+  normalComplex.setY( normalVec.getY() );
+  normalComplex.setZ( normalVec.getZ() );
+
+  Vec3< complex<double> > waveComplex;
+  waveComplex.setX( waveVector.getX() );
+  waveComplex.setY( waveVector.getY() );
+  waveComplex.setZ( waveVector.getZ() );
+  double k = waveVector.abs();
+
+  Vec3< complex<double> > E_tot = totalField( E_inc, normalVec, waveVector );
+  Vec3 <complex<double> > H_tot = waveComplex.cross( E_tot )/k;
+  H_tot *= sqrt(incident->mu/incident->eps);
+  
+  current.electric = normalComplex.cross( H_tot );
+  current.magnetic = normalComplex.cross( E_tot )*-1.0;
+}

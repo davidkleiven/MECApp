@@ -3,6 +3,7 @@
 #include "materialProp.h"
 #include "regionBoundary.h"
 #include "point.h"
+#include "equivalentCurrent.h"
 #include <complex>
 
 class Fresnel
@@ -15,6 +16,9 @@ class Fresnel
 
     // TODO: Verify that there are no sign issues in this function
     Vec3< std::complex<double> > totalField( const Vec3<double> &E_inc, const Vec3<double>& normalVec, const Vec3<double> &waveVector ) const;
+
+    void equivalentCurrent( const Vec3<double> &E_inc, const Vec3<double> &normalVec, const Vec3<double> &waveVector, \
+    EquivalentCurrent &current) const;
   private:
     // Pointers to material. Designed to be pointers to properties in the RegionBoundary class
     const Material *incident;
