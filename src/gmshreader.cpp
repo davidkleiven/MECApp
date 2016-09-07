@@ -11,7 +11,7 @@ using namespace std;
 
 GmshReader::GmshReader(){};
 
-Facets GmshReader::read( const string& fname ) const
+void GmshReader::read( const string& fname, Facets& facets ) const
 {
   string id("[GmshReader::read] ");
   ifstream infile( fname.c_str() );
@@ -47,10 +47,7 @@ Facets GmshReader::read( const string& fname ) const
       break;
     }
   }
-  if ( Facet::nodesCrd.size() > 0 )
-  {
-    throw( invalid_argument("Node coordinates is already initialized...") );
-  }
+  unsigned int nodesOffset = Facet::nodesCrd.size();
   
   unsigned int nodeNumber;
   #ifdef GMSHREADER_DEBUG
@@ -94,7 +91,6 @@ Facets GmshReader::read( const string& fname ) const
   unsigned int elementNumber;
   bool isFirst = true;
 
-  Facets facetlist;
   #ifdef GMSHREADER_DEBUG
     cerr << id << "Reading elements...\n";
   #endif
@@ -128,12 +124,16 @@ Facets GmshReader::read( const string& fname ) const
     nodenum[0] -= 1;
     nodenum[1] -= 1;
     nodenum[2] -= 1;
+
+    // Add offset in case there are already another mesh stored
+    nodenum[0] += nodesOffset;
+    nodenum[1] += nodesOffset;
+    nodenum[2] += nodesOffset;
     newfacet.setNodes(nodenum);
-    facetlist.add( newfacet );
+    facets.add( newfacet );
   }
   infile.close();
   #ifdef GMSHREADER_DEBUG
     cerr << id << "Leaving read function...\n";
   #endif
-  return facetlist;
 }

@@ -15,8 +15,8 @@
 #include "vtkDoubleArray.h"
 
 using namespace std;
-Facets::Facets(): facets(new vector<Facet>()){};
-Facets::Facets( const Facets &other ): facets(new vector<Facet>())
+Facets::Facets(): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>()){};
+Facets::Facets( const Facets &other ): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>())
 {
   this->swap(other);
 }
@@ -30,6 +30,7 @@ Facets& Facets::operator =( const Facets &other )
 Facets::~Facets()
 {
   delete facets;
+  delete boundaries;
 }
 
 void Facets::add( const Facet &facet )
@@ -59,6 +60,7 @@ void Facets::sortByDistanceFromSource()
 void Facets::swap( const Facets& other )
 {
   *facets = *other.facets;
+  *boundaries = *other.boundaries;
   hasComputedDistanceFromSource = other.hasComputedDistanceFromSource;
 } 
 

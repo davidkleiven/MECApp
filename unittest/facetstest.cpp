@@ -12,7 +12,8 @@ BOOST_AUTO_TEST_CASE( sort )
   GmshReader reader;
   try
   {
-    Facets facets = reader.read( fname );
+    Facets facets;
+    reader.read( fname, facets );
     Vec3<double> sourcePos(-30.0,-10.0,-4.0);
     facets.computeDistanceFromSource( sourcePos );
     facets.sortByDistanceFromSource();

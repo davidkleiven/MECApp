@@ -4,6 +4,8 @@
 #include <string>
 #include "facet.h"
 #include "point.h"
+#include <set>
+#include "regionBoundary.h"
 
 class Facets
 {
@@ -21,6 +23,7 @@ class Facets
     void illuminate();
   private:
     std::vector<Facet> *facets;
+    std::set<RegionBoundary> *boundaries;
     bool hasComputedDistanceFromSource{false};
 
     void swap( const Facets &other );

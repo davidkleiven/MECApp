@@ -7,7 +7,7 @@ class GmshReader
 {
   public:
     GmshReader();
-    Facets read( const std::string& fname ) const;
+    void read( const std::string& fname, Facets& facets ) const;
     enum ElementType_t{LINE=1,TRIANGLE=2,SINGLE_POINT=15};
 };
 #endif
