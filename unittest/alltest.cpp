@@ -5,3 +5,4 @@
 #include "facettest.cpp"
 #include "facetstest.cpp"
 #include "fresneltest.cpp"
+#include "farFieldTest.cpp"

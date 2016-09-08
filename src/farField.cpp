@@ -36,30 +36,34 @@ void FarField::computeIntegralCoefficients( const Facet &facet, double wavenumbe
    
 void FarField::surfaceIntegral( const Facet &facet, double wavenumber )
 {
-  computeIntegralCoefficients( facet, wavenumber );
+  if ( !runUnitTest )
+  {
+    computeIntegralCoefficients( facet, wavenumber );
+  }
+
   if (( abs(a) < INTEGRAL_COEFF_ZERO ) && ( abs(b) < INTEGRAL_COEFF_ZERO ))
   {
-    surfaceIntagralValue =  facet.area();
+    surfaceIntegralValue =  facet.area();
   }
   else if ( abs(b-a) < INTEGRAL_COEFF_ZERO )
   {
     complex<double> numerator = exp(IM_UNIT*a)*(1.0-IM_UNIT*a)-1.0;
-    surfaceIntagralValue = 2.0*facet.area()*exp(-2.0*IM_UNIT*a/3.0)*numerator/pow(a,2);
+    surfaceIntegralValue = 2.0*facet.area()*exp(-2.0*IM_UNIT*a/3.0)*numerator/pow(a,2);
   }
   else if ( abs(b) < INTEGRAL_COEFF_ZERO )
   {
     complex<double> numerator = 1.0+IM_UNIT*a - exp(IM_UNIT*a);
-    surfaceIntagralValue = 2.0*facet.area()*exp(-IM_UNIT*a/3.0)*numerator/pow(a,2);
+    surfaceIntegralValue = 2.0*facet.area()*exp(-IM_UNIT*a/3.0)*numerator/pow(a,2);
   }
   else if ( abs(a) < INTEGRAL_COEFF_ZERO )
   {
     complex<double> numerator = 1.0+IM_UNIT*b - exp(IM_UNIT*b);
-    surfaceIntagralValue = 2.0*facet.area()*exp(-IM_UNIT*b/3.0)*numerator/pow(b,2);
+    surfaceIntegralValue = 2.0*facet.area()*exp(-IM_UNIT*b/3.0)*numerator/pow(b,2);
   }
   else
   {
     complex<double> numerator = a*exp(IM_UNIT*b) - b*exp(IM_UNIT*a) + b - a;
-    surfaceIntagralValue = 2.0*facet.area()*exp(-IM_UNIT*(a+b)/3.0)*numerator/(a*b*(a-b));
+    surfaceIntegralValue = 2.0*facet.area()*exp(-IM_UNIT*(a+b)/3.0)*numerator/(a*b*(a-b));
   }
 }
     
