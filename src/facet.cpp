@@ -113,3 +113,10 @@ bool Facet::isBehindOther( const Facet& other ) const
   return isBehindOtherPlane && isInsideOtherPyramid;
 } 
 
+double Facet::area() const
+{
+  Vec3<double> v12 = nodesCrd[nodes[1]] - nodesCrd[nodes[0]];
+  Vec3<double> v13 = nodesCrd[nodes[2]] - nodesCrd[nodes[0]];
+  Vec3<double> crossProd = v12.cross(v13);
+  return 0.5*crossProd.abs();
+}

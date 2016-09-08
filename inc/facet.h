@@ -31,6 +31,8 @@ class Facet
     const Vec3<double>& getSourcePosition() const { return _sourcePos; };
     const Vec3<double>& getNormalVector() const { return *normalVector; };
     EquivalentCurrent& getEquivalentCurrent(){return *current;};
+    const Vec3<double>& getCentroid() const {return *center;};
+    double area() const;
   private:
     unsigned int *nodes;
     bool isIlluminated{true};
