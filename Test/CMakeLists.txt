@@ -21,3 +21,6 @@ endif()
 
 add_executable(illumination.out src/illumination.cpp)
 target_link_libraries(illumination.out ${VTK_LIBRARIES} ${MECAPPLIB})
+
+add_executable(scatPow.out src/scatteredPower.cpp)
+target_link_libraries(scatPow.out ${VTK_LIBRARIES} ${MECAPPLIB})

@@ -7,6 +7,7 @@
 #include <set>
 #include "regionBoundary.h"
 #include "fresnel.h"
+#include "farField.h"
 
 class Facets
 {
@@ -24,11 +25,17 @@ class Facets
     void illuminate();
     void addRegion( RegionBoundary &boundary );
     void computeEquivalentCurrent(const Vec3<double> &E_inc, const Vec3<double> &waveVec);
+    double computeScatteredPower( const Vec3<double> &point );
   private:
     std::vector<Facet> *facets;
     std::set<RegionBoundary> *boundaries;
     bool hasComputedDistanceFromSource{false};
     Fresnel *fresnel;
+    FarField *farField;
+
+    // Store a pointer to these for convenience (this class does not own them)
+    const Vec3<double> *E_inc_pointer;
+    const Vec3<double> *waveVector_pointer;
 
     void swap( const Facets &other );
     bool hasComputedEqCurrents{false};

@@ -7,3 +7,5 @@ CMakeFiles/*
 Makefile
 Makefile.old
 data/*
+sphere.stl
+sphere.brep

@@ -12,6 +12,7 @@ Vec3<T>& ComplexConjVector<T>::compute( Vec3<T> &vec ) const
   return vec;
 };
 
+
 //template <>
 Vec3<double>& ComplexConjVector<double>::compute( Vec3<double> &vec ) const
 {

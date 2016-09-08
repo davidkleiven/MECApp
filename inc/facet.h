@@ -30,7 +30,8 @@ class Facet
     bool getIllumination() const { return isIlluminated; };
     const Vec3<double>& getSourcePosition() const { return _sourcePos; };
     const Vec3<double>& getNormalVector() const { return *normalVector; };
-    EquivalentCurrent& getEquivalentCurrent(){return *current;};
+    const EquivalentCurrent& getEquivalentCurrent() const {return *current;};
+    EquivalentCurrent& getEquivalentCurrent() {return *current;};
     const Vec3<double>& getCentroid() const {return *center;};
     double area() const;
   private:

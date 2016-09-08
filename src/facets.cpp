@@ -15,8 +15,10 @@
 #include "vtkDoubleArray.h"
 
 using namespace std;
-Facets::Facets(): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>()), fresnel(new Fresnel()){};
-Facets::Facets( const Facets &other ): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>()), fresnel(new Fresnel())
+Facets::Facets(): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>()), fresnel(new Fresnel()), \
+ farField(new FarField()){};
+Facets::Facets( const Facets &other ): facets(new vector<Facet>()), boundaries(new set<RegionBoundary>()), fresnel(new Fresnel()), \
+ farField(new FarField())
 {
   this->swap(other);
 }
@@ -32,6 +34,7 @@ Facets::~Facets()
   delete facets;
   delete boundaries;
   delete fresnel;
+  delete farField;
 }
 
 void Facets::add( const Facet &facet )
@@ -63,6 +66,7 @@ void Facets::swap( const Facets& other )
   *facets = *other.facets;
   *boundaries = *other.boundaries;
   *fresnel = *other.fresnel;
+  *farField = *other.farField;
   hasComputedDistanceFromSource = other.hasComputedDistanceFromSource;
 } 
 
@@ -185,5 +189,33 @@ void Facets::computeEquivalentCurrent( const Vec3<double> &E_inc, const Vec3<dou
     fresnel->equivalentCurrent( E_inc, normal, waveVector, (*facets)[i].getEquivalentCurrent() );
   }
   hasComputedEqCurrents = true;
+
+  // Store pointer to incident field and wave vector for convenience
+  E_inc_pointer = &E_inc;
+  waveVector_pointer = &waveVector; 
 } 
     
+double Facets::computeScatteredPower( const Vec3<double> &obsPoint )
+{
+  if ( !hasComputedEqCurrents )
+  {
+    throw (invalid_argument("The equivalent currents have not been computed. Call computeEquivalentCurrent first...") );
+  }
+
+  double scatteredPower = 0.0;
+  Vec3<double> H_inc = waveVector_pointer->cross(*E_inc_pointer)/waveVector_pointer->abs(); 
+
+  farField->computePoynting( *E_inc_pointer, H_inc );
+  farField->setObservationDirection(obsPoint);
+  double wavenumber = waveVector_pointer->abs();
+  for ( unsigned int i=0;i<facets->size();i++ )
+  {
+    if ( !(*facets)[i].getIllumination() )
+    {
+      continue;
+    }
+    farField->computeScatteredFields( (*facets)[i], wavenumber );
+    scatteredPower += pow(obsPoint.abs(),2)*farField->radiatedPower();
+  }
+  return scatteredPower;
+}
