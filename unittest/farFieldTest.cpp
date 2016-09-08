@@ -24,6 +24,7 @@ class FarFieldTester: public FarField
       surfaceIntegral(facet,k);
       return surfaceIntegralValue;
     };
+    void computeAandB(const Facet &facet, double wavenumber) { computeIntegralCoefficients(facet,wavenumber);};
 };
 
 BOOST_AUTO_TEST_SUITE( farFieldTestSuite )
@@ -47,7 +48,8 @@ BOOST_AUTO_TEST_CASE( surfaceIntegral )
 
   FarFieldTester ffTest;
   ffTest.setObservationDirection(obsPoint);
-  ffTest.computePoynting(E_inc, waveVec);
+  Vec3<double> H_inc = waveVec.cross(E_inc);
+  ffTest.computePoynting(E_inc, H_inc);
 
   // Test with fixed values of a and b
   double a = 0.0;
@@ -79,5 +81,12 @@ BOOST_AUTO_TEST_CASE( surfaceIntegral )
   surfInt = ffTest.surfIntegral( facet, k, a, b ); 
   BOOST_CHECK_CLOSE( real(expected), real(surfInt), 0.1f );
   BOOST_CHECK_CLOSE( imag(expected), imag(surfInt), 0.1f );
+
+  // Check that the internal computation computes the coefficients correct
+  ffTest.computeAandB(facet,k); // Compute the coefficients using the wave vector and observation point
+  double aExp = k/sqrt(3.0);
+  double bExp = k/sqrt(3.0);
+  BOOST_CHECK_CLOSE(aExp, ffTest.getA(), 0.1f );
+  BOOST_CHECK_CLOSE(bExp, ffTest.getB(), 0.1f );
 }
 BOOST_AUTO_TEST_SUITE_END();
