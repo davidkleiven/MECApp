@@ -24,14 +24,14 @@ void FarField::computeIntegralCoefficients( const Facet &facet, double wavenumbe
 {
   assert( hasComputedPoynting );
   assert( observationDirectionIsSet );
-  const unsigned int nodes[3] = facet.getNodes();
+  const unsigned int *nodes = facet.getNodes();
 
   // See Meana et al. for these vector definitions
   Vec3<double> v12 = Facet::nodesCrd[nodes[1]] - Facet::nodesCrd[nodes[0]];
   Vec3<double> v13 = Facet::nodesCrd[nodes[2]] - Facet::nodesCrd[nodes[0]];
 
-  a = v12*(observationDirection - incPoyntingUnit)*wavenumber; 
-  b =  v13*(observationDirection - incPoyntingUnit)*wavenumber;
+  a = v12.dot(observationDirection - incPoyntingUnit)*wavenumber; 
+  b =  v13.dot(observationDirection - incPoyntingUnit)*wavenumber;
 }
    
 void FarField::surfaceIntegral( const Facet &facet, double wavenumber )

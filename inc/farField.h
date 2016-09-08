@@ -9,7 +9,7 @@ class FarField
 public:
   FarField();
   void computePoynting( const Vec3<double> &E_inc, const Vec3<double> &H_inc );
-  void setObservationDirection( const Vec<double> &observationPoint );
+  void setObservationDirection( const Vec3<double> &observationPoint );
 protected:
   Vec3<double> incPoyntingUnit;
   Vec3<double> observationDirection;
