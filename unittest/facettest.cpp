@@ -148,6 +148,22 @@ BOOST_AUTO_TEST_CASE( isBehindOther )
   BOOST_CHECK_EQUAL(result, false);
 }
 
+BOOST_AUTO_TEST_CASE( testArea )
+{
+  Vec3<double> crd0(0.0,0.0,0.0);
+  Vec3<double> crd1(0.0,1.0,0.0);
+  Vec3<double> crd2(1.0,0.0,0.0);
+  Facet::nodesCrd.clear();
+  Facet::nodesCrd.push_back(crd0);
+  Facet::nodesCrd.push_back(crd1);
+  Facet::nodesCrd.push_back(crd2);
+  unsigned int nodes[3] = {0,1,2};
+  Facet facet;
+  facet.setNodes(nodes);
+  double area = facet.area();
+  double expectedArea = 0.5;
+  BOOST_CHECK_CLOSE(area, expectedArea, 0.1f);
+}
 BOOST_AUTO_TEST_SUITE_END()
   
   
