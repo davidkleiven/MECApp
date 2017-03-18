@@ -3,7 +3,7 @@
 #include <string>
 #include "facets.h"
 #include <complex>
-#include <jsoncpp/json/reader.h>
+#include <json/reader.h>
 
 class GmshReader
 {

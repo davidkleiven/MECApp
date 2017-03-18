@@ -6,7 +6,6 @@
 #include "facets.h"
 #include "facet.h"
 #include <string>
-#include <jsoncpp/json/reader.h>
 //#define GMSHREADER_DEBUG
 using namespace std;
 
@@ -24,7 +23,7 @@ void GmshReader::read( const string& jsonfile, Facets& facets )
   Json::Reader reader;
   reader.parse( in, data );
   in.close();
-  
+
   if ( !data.isMember("mesh") )
   {
     throw (invalid_argument("The json file does not contain a mesh file..."));
@@ -37,12 +36,12 @@ void GmshReader::read( const string& jsonfile, Facets& facets )
 
   RegionBoundary reg;
   reg.setMatProp( epsInc, muInc, RegionBoundary::Domain_t::INCIDENT );
-  reg.setMatProp( epsScat, muScat, RegionBoundary::Domain_t::SCATTERED ); 
+  reg.setMatProp( epsScat, muScat, RegionBoundary::Domain_t::SCATTERED );
   reg.setMinElm( facets.size() );
   readMesh( data["mesh"].asString(), facets );
   reg.setMaxElm( facets.size() );
   facets.addRegion( reg );
-  
+
 }
 
 void GmshReader::readMatProp( const string& key, complex<double> &matprop ) const
@@ -72,7 +71,7 @@ void GmshReader::readMatProp( const string& key, complex<double> &matprop ) cons
     matprop.imag( data[key]["imag"].asDouble() );
   }
 }
-  
+
 void GmshReader::readMesh( const string& fname, Facets& facets ) const
 {
   string id("[GmshReader::readMesh] ");
@@ -88,10 +87,10 @@ void GmshReader::readMesh( const string& fname, Facets& facets ) const
   // Some keywords to look for
   const string nodestart("$Nodes");
   const string nodeend("$EndNodes");
-  const string elementstart("$Elements");  
+  const string elementstart("$Elements");
   const string elementend("$EndElements");
   string line;
-  
+
   // Read until nodestart is found + 1 line
   bool breakOnNext = false;
   #ifdef GMSHREADER_DEBUG
@@ -110,7 +109,7 @@ void GmshReader::readMesh( const string& fname, Facets& facets ) const
     }
   }
   unsigned int nodesOffset = Facet::nodesCrd.size();
-  
+
   unsigned int nodeNumber;
   #ifdef GMSHREADER_DEBUG
     cerr << id << "Reading nodes...\n";
@@ -141,7 +140,7 @@ void GmshReader::readMesh( const string& fname, Facets& facets ) const
     {
       breakOnNext=true;
       continue;
-    } 
+    }
     if ( breakOnNext )
     {
       break;
@@ -178,7 +177,7 @@ void GmshReader::readMesh( const string& fname, Facets& facets ) const
     for ( unsigned int i=0;i<numberOfTags; i++ )
     {
       ss >> tag;
-    } 
+    }
     unsigned int nodenum[3];
     ss >> nodenum[0];
     ss >> nodenum[1];
